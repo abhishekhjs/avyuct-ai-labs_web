@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SolutionsHero from "@/components/solutions/SolutionsHero";
+import WorkflowSection from "@/components/home/WorkflowSection";
 import StrokeDetection from "@/components/solutions/StrokeDetection";
 import WorldModel from "@/components/solutions/WorldModel";
 import DeploymentArch from "@/components/solutions/DeploymentArch";
@@ -16,6 +17,7 @@ export default function SolutionsPage() {
   return (
     <>
       <SolutionsHero />
+      <WorkflowSection />
       <StrokeDetection />
       <WorldModel />
       <DeploymentArch />

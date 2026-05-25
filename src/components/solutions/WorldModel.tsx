@@ -92,13 +92,13 @@ export default function WorldModel() {
       <div className="absolute inset-0 bg-grid pointer-events-none" />
 
       <div className="container-narrow relative z-10">
-        <div className="wm-header text-center max-w-3xl mx-auto">
-          <p className="label-text mb-4">NEUROVASCULAR WORLD MODEL</p>
-          <h2 className="heading-lg">
+        <div className="wm-header w-full" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", margin: "0 auto" }}>
+          <p className="label-text" style={{ marginBottom: "1rem", textAlign: "center", width: "100%" }}>NEUROVASCULAR WORLD MODEL</p>
+          <h2 className="heading-lg" style={{ textAlign: "center", width: "100%" }}>
             The Future of{" "}
             <span className="text-gradient">Predictive Medicine</span>
           </h2>
-          <p className="body-lg mt-4">
+          <p className="body-lg premium-mt" style={{ textAlign: "center", width: "100%", maxWidth: "42rem" }}>
             A foundation AI model trained to map biological normalcy across
             cerebral vasculature — detecting life-threatening anomalies at
             the speed and accuracy no human can consistently match.
@@ -106,42 +106,32 @@ export default function WorldModel() {
         </div>
 
         {/* Stages */}
-        <div className="wm-stages grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
+        <div className="wm-stages grid grid-cols-1 md:grid-cols-3 premium-gap" style={{ marginTop: "5rem" }}>
           {STAGES.map((stage) => (
-            <div key={stage.num} className="wm-stage">
-              <GlassCard>
-                <p className="label-text mb-3">STAGE {stage.num}</p>
-                <div className="mb-4">{stage.icon}</div>
+            <div key={stage.num} className="wm-stage w-full h-full">
+              <GlassCard className="premium-card-padding h-full flex flex-col items-start">
+                <p className="label-text" style={{ marginBottom: "1rem" }}>STAGE {stage.num}</p>
+                <div style={{ marginBottom: "1.5rem" }}>{stage.icon}</div>
                 <h3 className="heading-sm">{stage.title}</h3>
-                <p className="body-md mt-3">{stage.description}</p>
+                <p className="body-md premium-mt">{stage.description}</p>
               </GlassCard>
             </div>
           ))}
         </div>
 
-        {/* Arrows between stages (desktop only) */}
-        <div className="hidden md:flex justify-center gap-4 -mt-32 mb-16 pointer-events-none">
-          <div className="w-1/3 flex justify-end pr-4">
-            <svg width="40" height="20" viewBox="0 0 40 20" fill="none" className="text-[var(--primary-blue)] opacity-50">
-              <path d="M0 10h32M28 4l6 6-6 6" stroke="currentColor" strokeWidth="2" />
-            </svg>
-          </div>
-          <div className="w-1/3 flex justify-end pr-4">
-            <svg width="40" height="20" viewBox="0 0 40 20" fill="none" className="text-[var(--primary-blue)] opacity-50">
-              <path d="M0 10h32M28 4l6 6-6 6" stroke="currentColor" strokeWidth="2" />
-            </svg>
-          </div>
-        </div>
+
 
         {/* UAE Callout */}
-        <div className="wm-callout glass-card p-10 mt-12 max-w-2xl mx-auto text-center" style={{ borderColor: "rgba(0, 102, 255, 0.3)" }}>
-          <p className="text-3xl mb-3">🇦🇪</p>
-          <h3 className="heading-sm">Sovereign AI Development</h3>
-          <p className="body-md mt-3">
-            Developed entirely in the Emirates as UAE IP, pioneering Abu
-            Dhabi&apos;s shift from reactive triage to proactive predictive care.
-          </p>
-          <p className="label-text mt-4">NOW BUILDING IN DUBAI</p>
+        <div className="w-full flex justify-center" style={{ marginTop: "8rem" }}>
+          <div className="wm-callout glass-card premium-card-padding max-w-2xl text-center" style={{ borderColor: "rgba(0, 102, 255, 0.3)" }}>
+            <p className="text-3xl" style={{ marginBottom: "1.5rem" }}>🇦🇪</p>
+            <h3 className="heading-sm">Sovereign AI Development</h3>
+            <p className="body-md premium-mt">
+              Developed entirely in the Emirates as UAE IP, pioneering Abu
+              Dhabi&apos;s shift from reactive triage to proactive predictive care.
+            </p>
+            <p className="label-text premium-mt">NOW BUILDING IN DUBAI</p>
+          </div>
         </div>
       </div>
     </section>

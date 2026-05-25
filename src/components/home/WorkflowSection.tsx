@@ -54,116 +54,56 @@ export default function WorkflowSection() {
         opacity: 0,
         duration: 1,
         ease: "power4.out",
-        scrollTrigger: { trigger: ".workflow-header", start: "top 80%" },
+        scrollTrigger: { trigger: container.current, start: "top 80%" },
       });
 
-      // MatchMedia for Desktop Stacked Sequence
-      let mm = gsap.matchMedia();
-      mm.add("(min-width: 1024px)", () => {
-        if (!trackRef.current || !container.current) return;
-        
-        const cards = gsap.utils.toArray<HTMLElement>(".workflow-step", trackRef.current);
-        if (cards.length < 2) return;
-
-        // Set initial state: all cards except first are hidden and translated down
-        gsap.set(cards.slice(1), { opacity: 0, y: 60 });
-        
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: container.current,
-            start: "top top",
-            end: () => `+=${cards.length * 150}vh`,
-            pin: true,
-            scrub: 1,
-            invalidateOnRefresh: true,
-          }
-        });
-
-        cards.forEach((card, i) => {
-          if (i === 0) return;
-          
-          // Animate previous card out (slide up, fade out)
-          tl.to(cards[i - 1], {
-            opacity: 0,
-            y: -60,
-            duration: 1,
-            ease: "power2.inOut"
-          }, i * 2.5);
-
-          // Animate current card in (slide up from bottom, fade in)
-          tl.to(card, {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power2.inOut"
-          }, i * 2.5);
-        });
-      });
-      
-      // Mobile fallback for cards
-      mm.add("(max-width: 1023px)", () => {
-        gsap.from(".workflow-step", {
-          x: -60,
-          opacity: 0,
-          stagger: 0.2,
-          duration: 0.8,
-          ease: "power4.out",
-          scrollTrigger: { trigger: trackRef.current, start: "top 70%" },
-        });
-
-        gsap.from(".step-circle", {
-          scale: 0,
-          stagger: 0.2,
-          duration: 0.6,
-          ease: "back.out(1.7)",
-          scrollTrigger: { trigger: trackRef.current, start: "top 70%" },
-        });
+      gsap.from(".workflow-card", {
+        y: 80,
+        opacity: 0,
+        stagger: 0.15,
+        duration: 0.8,
+        ease: "power4.out",
+        scrollTrigger: { trigger: trackRef.current, start: "top 70%" },
       });
     },
     { scope: container }
   );
 
+  const CARD_COLORS = [
+    "linear-gradient(135deg, #F59E0B, #D97706)", // Yellow/Orange
+    "linear-gradient(135deg, #EF4444, #B91C1C)", // Red
+    "linear-gradient(135deg, #14B8A6, #0F766E)", // Teal
+    "linear-gradient(135deg, #3B82F6, #1D4ED8)", // Blue
+  ];
+
   return (
-    <section ref={container} className="section-padding relative overflow-hidden min-h-screen flex items-center" style={{ background: "var(--deep-navy)" }}>
+    <section ref={container} className="section-padding relative overflow-hidden min-h-screen flex items-center justify-center" style={{ background: "var(--deep-navy)" }}>
       <div className="absolute inset-0 bg-grid pointer-events-none" />
 
-      <div className="container-narrow relative z-10 flex flex-col lg:flex-row w-full">
-        {/* Empty left side for scroll sequence */}
-        <div className="hidden lg:block lg:w-1/2" />
-        
-        {/* Right side content */}
-        <div className="lg:w-1/2 lg:pl-20 flex flex-col justify-center py-24 lg:py-0 overflow-hidden">
-          <div className="workflow-header max-w-xl shrink-0 mb-14">
-            <p className="label-text mb-4 tracking-widest">OUR WORKFLOW</p>
-            <h2 className="heading-lg leading-tight">Data to Insight in Seconds</h2>
-            <p className="body-lg mt-8 text-neutral-300 leading-relaxed">
-              Our seamless integration ensures you never have to change your existing clinical workflow.
-            </p>
-          </div>
+      <div className="w-full px-4 md:px-8 lg:px-16 xl:px-24 mx-auto max-w-[1600px] relative z-10 flex flex-col items-center">
+        {/* Header centered */}
+        <div className="workflow-header w-full flex flex-col items-center text-center max-w-3xl mx-auto" style={{ marginBottom: "5rem" }}>
+          <p className="label-text mb-4 tracking-widest text-neutral-400 text-center">OUR WORKFLOW</p>
+          <h2 className="heading-lg leading-tight text-center">Data to Insight in Seconds</h2>
+          <p className="body-lg mt-6 text-neutral-300 leading-relaxed text-center mx-auto max-w-xl">
+            Our seamless integration ensures you never have to change your existing clinical workflow.
+          </p>
+        </div>
 
-          {/* Stacked Sequence Wrapper */}
-          <div className="w-full">
-            <div ref={trackRef} className="relative flex flex-col gap-8 lg:block w-full lg:h-[460px]">
-              {WORKFLOW_STEPS.map((step) => (
-                <div key={step.step} className="workflow-step relative w-full lg:absolute lg:inset-0 pb-12 lg:pb-0">
-                  <GlassCard hover={false} padding="premium-card-padding" className="h-full flex flex-col items-center justify-center text-center relative">
-                    {/* Number Badge Top Left */}
-                    <div
-                      className="absolute top-6 left-6 lg:top-8 lg:left-8 step-circle w-12 h-12 rounded-full flex items-center justify-center font-bold text-white text-lg shadow-[0_0_20px_rgba(0,102,255,0.4)]"
-                      style={{ background: "var(--primary-blue)" }}
-                    >
-                      {step.step}
-                    </div>
-
-                    <div className="mb-6 flex justify-center w-full">
-                      {STEP_ICONS[step.icon]}
-                    </div>
-                    <h3 className="heading-sm">{step.title}</h3>
-                    <p className="body-lg mt-4 text-neutral-300">{step.description}</p>
-                  </GlassCard>
-                </div>
-              ))}
-            </div>
+        {/* 4-Card Horizontal Layout */}
+        <div className="w-full relative py-10" ref={trackRef}>
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 premium-gap">
+            {WORKFLOW_STEPS.map((step) => (
+              <div key={step.step} className="workflow-card w-full">
+                <GlassCard hover className="h-full flex flex-col premium-card-padding items-center justify-center text-center">
+                  <div className="mb-6 flex justify-center shrink-0">
+                    {STEP_ICONS[step.icon]}
+                  </div>
+                  <h3 className="heading-sm text-center">{step.title}</h3>
+                  <p className="body-lg mt-4 text-neutral-300 text-center">{step.description}</p>
+                </GlassCard>
+              </div>
+            ))}
           </div>
         </div>
       </div>

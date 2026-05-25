@@ -136,14 +136,10 @@ export default function ProblemSection() {
     >
       <div className="absolute inset-0 bg-grid pointer-events-none" />
 
-      <div className="container-narrow relative z-10 flex flex-col lg:flex-row w-full">
-        {/* Empty left side for scroll sequence */}
-        <div className="hidden lg:block lg:w-1/2" />
-        
-        {/* Right side content */}
-        <div className="lg:w-1/2 lg:pl-20 flex flex-col justify-center py-24 lg:py-0 overflow-hidden">
-          {/* Header */}
-          <div className="problem-header max-w-xl mb-14 shrink-0">
+      <div className="container-narrow relative z-10 flex flex-col lg:flex-row items-center premium-gap-xl w-full">
+        {/* Left Side: Header */}
+        <div className="lg:w-1/2 flex flex-col justify-center py-24 lg:py-0 overflow-hidden">
+          <div className="problem-header max-w-xl shrink-0">
             <p className="label-text mb-4 tracking-widest">THE CHALLENGE</p>
             <h2 className="heading-lg leading-tight">The Stroke No One Sees Coming.</h2>
             <p className="body-lg mt-8 text-neutral-300 leading-relaxed">
@@ -152,9 +148,10 @@ export default function ProblemSection() {
               misses it.
             </p>
           </div>
+        </div>
 
-          {/* Stacked Sequence Wrapper */}
-          <div className="w-full">
+        {/* Right Side: Stacked Sequence */}
+        <div className="lg:w-1/2 flex flex-col justify-center pb-24 lg:py-0 w-full">
             <div 
               ref={trackRef} 
               className="relative flex flex-col gap-8 lg:block w-full lg:h-[320px]"
@@ -208,8 +205,7 @@ export default function ProblemSection() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+          </div>
     </section>
   );
 }

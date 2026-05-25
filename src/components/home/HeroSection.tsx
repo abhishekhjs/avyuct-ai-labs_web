@@ -71,8 +71,22 @@ export default function HeroSection() {
           </div>
         </div>
         
-        {/* Empty space on the right for the fixed sequence canvas */}
-        <div className="lg:w-1/2 hidden lg:block"></div>
+        {/* Video on the Right Side */}
+        <div className="lg:w-1/2 w-full mt-12 lg:mt-0 hero-anim">
+          <div className="relative rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(0,102,255,0.3)] border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm group">
+            <video
+              src="/0521.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-auto object-cover rounded-2xl"
+              preload="auto"
+            />
+            {/* Subtle overlay gradient to blend with the dark theme */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-neutral-950/40 to-transparent pointer-events-none rounded-2xl" />
+          </div>
+        </div>
       </div>
     </section>
   );

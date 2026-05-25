@@ -33,24 +33,60 @@ export default function StrokeDetection() {
   return (
     <section ref={container} id="stroke-detection" className="section-padding">
       <div className="container-narrow">
-        <div className="stroke-header text-center max-w-2xl mx-auto">
-          <p className="label-text mb-4">STROKE DETECTION SUITE</p>
-          <h2 className="heading-lg">
+        <div className="stroke-header w-full" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", margin: "0 auto" }}>
+          <p className="label-text" style={{ marginBottom: "1rem", textAlign: "center", width: "100%" }}>STROKE DETECTION SUITE</p>
+          <h2 className="heading-lg" style={{ textAlign: "center", width: "100%" }}>
             Detecting Strokes Across All Vessel Segments
           </h2>
         </div>
 
         {/* Tabs */}
-        <div className="flex flex-wrap justify-center gap-3 mt-12">
+        <div className="flex flex-wrap justify-center premium-mt-lg" style={{ gap: "1rem" }}>
           {STROKE_TABS.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-6 py-3 rounded-lg font-medium text-sm transition-all duration-300 ${
-                activeTab === tab.id
-                  ? "bg-[var(--primary-blue)] text-white shadow-lg"
-                  : "glass-card text-neutral-400 hover:text-white"
-              }`}
+              style={{
+                position: "relative",
+                padding: "1rem 2.5rem",
+                borderRadius: "9999px",
+                fontWeight: "600",
+                fontSize: "0.875rem",
+                letterSpacing: "0.025em",
+                transition: "all 300ms ease-in-out",
+                borderWidth: "1px",
+                borderStyle: "solid",
+                cursor: "pointer",
+                outline: "none",
+                ...(activeTab === tab.id
+                  ? {
+                      background: "linear-gradient(to right, var(--primary-blue), var(--secondary-blue))",
+                      color: "white",
+                      borderColor: "transparent",
+                      boxShadow: "0 0 20px rgba(0, 102, 255, 0.4)",
+                    }
+                  : {
+                      background: "rgba(23, 23, 23, 0.5)",
+                      backdropFilter: "blur(12px)",
+                      WebkitBackdropFilter: "blur(12px)",
+                      borderColor: "rgba(38, 38, 38, 1)",
+                      color: "rgba(163, 163, 163, 1)",
+                    }),
+              }}
+              onMouseEnter={(e) => {
+                if (activeTab !== tab.id) {
+                  e.currentTarget.style.color = "white";
+                  e.currentTarget.style.borderColor = "rgba(82, 82, 82, 1)";
+                  e.currentTarget.style.background = "rgba(38, 38, 38, 0.8)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (activeTab !== tab.id) {
+                  e.currentTarget.style.color = "rgba(163, 163, 163, 1)";
+                  e.currentTarget.style.borderColor = "rgba(38, 38, 38, 1)";
+                  e.currentTarget.style.background = "rgba(23, 23, 23, 0.5)";
+                }
+              }}
             >
               {tab.label}
               {"isComingSoon" in tab && tab.isComingSoon && (
@@ -61,11 +97,11 @@ export default function StrokeDetection() {
         </div>
 
         {/* Tab Content */}
-        <div className="mt-14 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 premium-gap-xl items-center" style={{ marginTop: "4rem" }}>
           <div>
             <h3 className="heading-md">{activeData.headline}</h3>
-            <p className="body-lg mt-4">{activeData.description}</p>
-            <div className="mt-6 space-y-3">
+            <p className="body-lg premium-mt">{activeData.description}</p>
+            <div className="premium-mt flex flex-col" style={{ gap: "1rem" }}>
               {activeData.stats.map((stat) => (
                 <div key={stat.label} className="flex items-center gap-3">
                   <span className="mono-text font-semibold">{stat.value}</span>

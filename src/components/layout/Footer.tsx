@@ -86,11 +86,11 @@ export default function Footer() {
       {/* Premium Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[var(--primary-blue)]/10 blur-[150px] rounded-full pointer-events-none opacity-50" />
       
-      <div className="relative container-narrow premium-footer-padding">
+      <div className="relative container-narrow" style={{ paddingTop: '8rem', paddingBottom: '8rem' }}>
         {/* ── Three-column grid ────────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-24">
+        <div className="grid grid-cols-1 lg:grid-cols-3" style={{ gap: '6rem' }}>
           {/* Column 1 — Company */}
-          <div className="space-y-8">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
             {/* Logo */}
             <Link href="/" className="inline-flex items-center gap-3 group relative">
               <div className="absolute inset-0 bg-[var(--primary-blue)]/30 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
@@ -178,8 +178,8 @@ export default function Footer() {
 
           {/* Column 2 — Quick Links */}
           <div className="lg:pl-8">
-            <h3 className="text-sm font-semibold tracking-wider text-white uppercase mb-8 opacity-90">Quick Links</h3>
-            <ul className="space-y-4">
+            <h3 className="text-sm font-semibold tracking-wider text-white uppercase mb-8 opacity-90" style={{ marginBottom: '2.5rem' }}>Quick Links</h3>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
                   <Link
@@ -205,8 +205,8 @@ export default function Footer() {
 
           {/* Column 3 — Contact */}
           <div>
-            <h3 className="text-sm font-semibold tracking-wider text-white uppercase mb-8 opacity-90">Contact</h3>
-            <div className="space-y-6">
+            <h3 className="text-sm font-semibold tracking-wider text-white uppercase mb-8 opacity-90" style={{ marginBottom: '2.5rem' }}>Contact</h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
               {/* HQ */}
               <div className="flex items-start gap-3 group">
                 <div className="p-2 rounded-lg bg-white/5 text-[var(--primary-blue)] group-hover:bg-[var(--primary-blue)] group-hover:text-white transition-colors duration-300">
@@ -260,7 +260,7 @@ export default function Footer() {
         </div>
 
         {/* ── Bottom bar ───────────────────────────────────── */}
-        <div className="mt-20 pt-8 border-t border-white/10">
+        <div className="border-t border-white/10" style={{ marginTop: '6rem', paddingTop: '3rem' }}>
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <p className="text-sm text-white">
               © {new Date().getFullYear()} Avyuct AI Labs. All rights reserved.

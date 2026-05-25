@@ -52,59 +52,14 @@ export default function ClinicalValidation() {
         scrollTrigger: { trigger: ".pillar-header", start: "top 80%" },
       });
 
-      // MatchMedia for Desktop Stacked Sequence
-      let mm = gsap.matchMedia();
-      mm.add("(min-width: 1024px)", () => {
-        if (!trackRef.current || !container.current) return;
-        
-        const cards = gsap.utils.toArray<HTMLElement>(".pillar-card", trackRef.current);
-        if (cards.length < 2) return;
-
-        // Set initial state: all cards except first are hidden and translated down
-        gsap.set(cards.slice(1), { opacity: 0, y: 60 });
-        
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: container.current,
-            start: "top top",
-            end: () => `+=${cards.length * 150}vh`,
-            pin: true,
-            scrub: 1,
-            invalidateOnRefresh: true,
-          }
-        });
-
-        cards.forEach((card, i) => {
-          if (i === 0) return; // First card is already visible
-          
-          // Animate previous card out (slide up, fade out)
-          tl.to(cards[i - 1], {
-            opacity: 0,
-            y: -60,
-            duration: 1,
-            ease: "power2.inOut"
-          }, i * 2.5);
-
-          // Animate current card in (slide up from bottom, fade in)
-          tl.to(card, {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power2.inOut"
-          }, i * 2.5);
-        });
-      });
-      
-      // Mobile fallback for cards
-      mm.add("(max-width: 1023px)", () => {
-        gsap.from(".pillar-card", {
-          y: 80,
-          opacity: 0,
-          stagger: 0.15,
-          duration: 0.8,
-          ease: "power4.out",
-          scrollTrigger: { trigger: trackRef.current, start: "top 70%" },
-        });
+      // Simple stagger reveal animation for all cards
+      gsap.from(".pillar-card", {
+        y: 80,
+        opacity: 0,
+        stagger: 0.15,
+        duration: 0.8,
+        ease: "power4.out",
+        scrollTrigger: { trigger: trackRef.current, start: "top 70%" },
       });
     },
     { scope: container }
@@ -114,36 +69,29 @@ export default function ClinicalValidation() {
     <section ref={container} className="section-padding relative overflow-hidden min-h-screen flex items-center">
       <NeuralNetwork className="absolute inset-0 z-0 pointer-events-none opacity-30" />
 
-      <div className="container-narrow relative z-10 flex flex-col lg:flex-row w-full">
-        {/* Empty left side for scroll sequence */}
-        <div className="hidden lg:block lg:w-1/2" />
-        
-        {/* Right side content */}
-        <div className="lg:w-1/2 lg:pl-20 flex flex-col justify-center py-24 lg:py-0 overflow-hidden">
-          <div className="pillar-header max-w-xl shrink-0 mb-14">
+      <div className="container-narrow relative z-10 flex flex-col w-full items-center">
+        <div className="w-full flex flex-col items-center py-24">
+          <div className="pillar-header max-w-3xl shrink-0 mb-16 text-center">
             <p className="label-text mb-4 tracking-widest">CLINICAL MOAT</p>
             <h2 className="heading-lg leading-tight">Our Clinical Moat</h2>
-            <p className="body-lg mt-8 text-neutral-300 leading-relaxed">
+            <p className="body-lg mt-6 text-neutral-300 leading-relaxed mx-auto max-w-xl">
               Three foundational advantages that define our competitive edge in
               distal stroke detection.
             </p>
           </div>
 
-          {/* Stacked Sequence Wrapper */}
-          <div className="w-full">
-            <div ref={trackRef} className="relative flex flex-col gap-8 lg:block w-full lg:h-[380px]">
-              {CLINICAL_PILLARS.map((pillar) => (
-                <div key={pillar.title} className="pillar-card w-full lg:absolute lg:inset-0">
-                  <GlassCard hover className="h-full flex flex-col premium-card-padding">
-                    <div className="mb-6">
-                      {PILLAR_ICONS[pillar.icon]}
-                    </div>
-                    <h3 className="heading-sm">{pillar.title}</h3>
-                    <p className="body-lg mt-6 text-neutral-300 flex-1">{pillar.description}</p>
-                  </GlassCard>
-                </div>
-              ))}
-            </div>
+          <div ref={trackRef} className="w-full grid grid-cols-1 md:grid-cols-3 gap-8">
+            {CLINICAL_PILLARS.map((pillar) => (
+              <div key={pillar.title} className="pillar-card w-full">
+                <GlassCard hover className="h-full flex flex-col premium-card-padding">
+                  <div className="mb-6 flex">
+                    {PILLAR_ICONS[pillar.icon]}
+                  </div>
+                  <h3 className="heading-sm">{pillar.title}</h3>
+                  <p className="body-lg mt-4 text-neutral-300 flex-1">{pillar.description}</p>
+                </GlassCard>
+              </div>
+            ))}
           </div>
         </div>
       </div>

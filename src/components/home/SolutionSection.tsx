@@ -53,14 +53,6 @@ export default function SolutionSection() {
         scrollTrigger: { trigger: ".solution-header", start: "top 80%" },
       });
 
-      gsap.from(".slider-wrap", {
-        scale: 0.95,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: { trigger: ".slider-wrap", start: "top 75%" },
-      });
-
       // MatchMedia for Desktop Stacked Sequence
       let mm = gsap.matchMedia();
       mm.add("(min-width: 1024px)", () => {
@@ -121,28 +113,27 @@ export default function SolutionSection() {
 
   return (
     <section ref={container} className="relative">
-      <div className="container-narrow relative z-10 flex flex-col lg:flex-row w-full">
-        {/* Left side content */}
-        <div className="lg:w-1/2 lg:pr-20 w-full">
-          
-          {/* Pinned Container for Header and Stack */}
-          <div ref={pinContainer} className="lg:h-screen lg:flex lg:flex-col lg:justify-center py-24 lg:py-0 overflow-hidden">
-            {/* Header */}
-            <div className="solution-header max-w-xl shrink-0 mb-14">
-              <p className="label-text mb-4 tracking-widest">THE SOLUTION</p>
-              <h2 className="heading-lg leading-tight">
-                Avyuct AI detects what eyes{" "}
-                <span className="text-gradient">miss.</span>
-              </h2>
-              <p className="body-lg mt-8 text-neutral-300 leading-relaxed">
-                Autonomous Medical Intelligence — from emergency triage to
-                population-scale screening.
-              </p>
-            </div>
+      {/* Pinned Container for Header and Stack */}
+      <div ref={pinContainer} className="container-narrow relative z-10 lg:h-screen flex flex-col lg:flex-row lg:items-center premium-gap-xl w-full py-24 lg:py-0 overflow-hidden">
+        
+        {/* Left Side: Header */}
+        <div className="lg:w-1/2 flex flex-col justify-center">
+          <div className="solution-header max-w-xl shrink-0">
+            <p className="label-text mb-4 tracking-widest">THE SOLUTION</p>
+            <h2 className="heading-lg leading-tight">
+              Avyuct AI detects what eyes{" "}
+              <span className="text-gradient">miss.</span>
+            </h2>
+            <p className="body-lg mt-8 text-neutral-300 leading-relaxed">
+              Autonomous Medical Intelligence — from emergency triage to
+              population-scale screening.
+            </p>
+          </div>
+        </div>
 
-            {/* Capability Cards Stack */}
-            <div className="w-full">
-              <div ref={trackRef} className="relative flex flex-col gap-8 lg:block w-full lg:h-[380px]">
+        {/* Right Side: Capability Cards Stack */}
+        <div className="lg:w-1/2 flex flex-col justify-center w-full">
+          <div ref={trackRef} className="relative flex flex-col gap-8 lg:block w-full lg:h-[380px]">
                 {/* Before/After Slider - Animated as part of the stack */}
                 <div className="cap-card w-full lg:absolute lg:inset-0">
                   <BeforeAfterSlider
@@ -164,13 +155,8 @@ export default function SolutionSection() {
                     </GlassCard>
                   </div>
                 ))}
-              </div>
-            </div>
           </div>
         </div>
-        
-        {/* Empty right side for scroll sequence */}
-        <div className="hidden lg:block lg:w-1/2" />
       </div>
     </section>
   );

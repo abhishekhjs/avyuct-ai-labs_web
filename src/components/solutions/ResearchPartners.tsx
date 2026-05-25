@@ -42,26 +42,26 @@ export default function ResearchPartners() {
     <section ref={container} id="validation" className="section-padding relative overflow-hidden" style={{ background: "var(--deep-navy)" }}>
       <div className="absolute inset-0 bg-grid pointer-events-none" />
       <div className="container-narrow relative z-10">
-        <div className="rp-header text-center max-w-2xl mx-auto">
-          <p className="label-text mb-4">CLINICAL VALIDATION</p>
-          <h2 className="heading-lg">Institutional Validation</h2>
+        <div className="rp-header w-full" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", margin: "0 auto" }}>
+          <p className="label-text" style={{ marginBottom: "1rem", textAlign: "center", width: "100%" }}>CLINICAL VALIDATION</p>
+          <h2 className="heading-lg" style={{ textAlign: "center", width: "100%" }}>Institutional Validation</h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mt-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 premium-gap-xl" style={{ marginTop: "5rem" }}>
           {/* Metrics */}
-          <div className="metrics-grid grid grid-cols-2 gap-6">
+          <div className="metrics-grid grid grid-cols-2" style={{ gap: "1.5rem" }}>
             {METRICS.map((m) => (
-              <div key={m.label} className="metric-card glass-card p-8 text-center">
+              <div key={m.label} className="metric-card glass-card text-center" style={{ padding: "2rem" }}>
                 <p className="text-3xl md:text-4xl font-black text-gradient">{m.value}</p>
-                <p className="body-md mt-2 text-sm">{m.label}</p>
+                <p className="body-md text-sm" style={{ marginTop: "0.5rem" }}>{m.label}</p>
               </div>
             ))}
           </div>
 
           {/* Timeline */}
           <div className="milestone-list">
-            <h3 className="heading-sm mb-6">Milestone Timeline</h3>
-            <div className="space-y-4">
+            <h3 className="heading-sm" style={{ marginBottom: "1.5rem" }}>Milestone Timeline</h3>
+            <div className="flex flex-col" style={{ gap: "1rem" }}>
               {MILESTONES.map((ms, i) => (
                 <div key={i} className="milestone-item flex items-start gap-4">
                   <div className="flex flex-col items-center">
