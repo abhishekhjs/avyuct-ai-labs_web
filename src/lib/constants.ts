@@ -47,7 +47,7 @@ export const CONTACT = {
 export const HERO_STATS = [
   { value: "86%", label: "Sensitivity" },
   { value: "5", label: "US Patents" },
-  { value: "M2–M4", label: "Distal Detection" },
+  { value: "M2–M3", label: "Distal Detection" },
 ] as const;
 
 /* ========================================
@@ -184,7 +184,7 @@ export const TRUST_SIGNALS = [
   {
     title: "Anomaly Visualization",
     description:
-      "Advanced imaging insights across M2–M4 segments enable confident, rapid clinical decisions.",
+      "Advanced imaging insights across M2–M3 segments enable confident, rapid clinical decisions.",
     icon: "eye",
   },
   {
@@ -242,23 +242,19 @@ export const FAQ_DATA = [
    ======================================== */
 export const TEAM_MEMBERS = [
   {
-    name: "Dr. Arun Mehta", // PLACEHOLDER NAME
-    role: "Founder & CEO",
-    bio: "AI/ML researcher with 15+ years in medical imaging. Previously led computer vision research at a top-tier healthcare AI company.",
-    image: "/images/team/placeholder-ceo.jpg", // PLACEHOLDER IMAGE
+    name: "Rajesh Aggarwal",
+    role: "Founder & CEO, Avyuct Inc. & Avyuct AI Labs",
+    bio: "Founder and Chief Data Scientist with a PhD in Applied Mathematics and Parallel Computing from Columbia University. Deep expertise in AI-driven predictive modeling and anomaly detection.",
+    image: "/founder.png",
+    linkedin: "https://www.linkedin.com/in/rajesh-aggarwal-aa269120/",
   },
   {
-    name: "Dr. Sarah Chen", // PLACEHOLDER NAME
-    role: "Chief Medical Officer",
-    bio: "Interventional neurologist and stroke specialist with 20+ years of clinical experience. Former department head at a leading academic medical center.",
-    image: "/images/team/placeholder-cmo.jpg", // PLACEHOLDER IMAGE
-  },
-  {
-    name: "Raj Patel", // PLACEHOLDER NAME
-    role: "Chief Technology Officer",
-    bio: "Edge computing and distributed systems expert. Previously architected HIPAA-compliant medical device platforms at a Fortune 500 company.",
-    image: "/images/team/placeholder-cto.jpg", // PLACEHOLDER IMAGE
-  },
+    name: "Suhaib Bin Yousouf",
+    role: "Co-Founder & Lead Data Scientist, Avyuct AI Labs",
+    bio: "Specializes in Medical AI and Computer Vision. Architect behind the Universal Vascular World Models. Holds an M.Tech from IIT Guwahati and B.Tech from NIT Warangal.",
+    image: "/cofounder.jpg",
+    linkedin: "https://www.linkedin.com/in/bsuhaib-0a6893a6/",
+  }
 ] as const;
 
 /* ========================================
@@ -297,7 +293,7 @@ export const STROKE_TABS = [
     stats: [
       { label: "Sensitivity", value: "86% (vs. 60% unaided)" },
       { label: "Coverage", value: "25% of all stroke cases" },
-      { label: "Segments", value: "M2 distal, M3, M4" },
+      { label: "Segments", value: "M2 distal, M3" },
     ],
     isPrimary: true,
   },

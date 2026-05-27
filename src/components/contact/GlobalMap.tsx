@@ -16,16 +16,63 @@ export default function GlobalMap() {
   }, { scope: container });
 
   return (
-    <section ref={container} className="section-padding">
-      <div className="container-narrow text-center">
+    <section
+      ref={container}
+      style={{
+        paddingTop: "clamp(5rem, 12vh, 9rem)",
+        paddingBottom: "clamp(5rem, 12vh, 9rem)",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1100px",
+          margin: "0 auto",
+          padding: "0 2rem",
+          textAlign: "center",
+        }}
+      >
+        {/* Centered header */}
         <div className="gm-header">
-          <p className="label-text mb-4">GLOBAL REACH</p>
-          <h2 className="heading-lg">Global Reach, Local Expertise</h2>
-          <p className="body-lg mt-4 max-w-2xl mx-auto">
+          <p
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.75rem",
+              fontWeight: 500,
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "var(--primary-blue)",
+              marginBottom: "1rem",
+            }}
+          >
+            Global Reach
+          </p>
+          <h2
+            className="heading-lg"
+            style={{ marginBottom: "1rem" }}
+          >
+            Global Reach, Local Expertise
+          </h2>
+          <p
+            style={{
+              fontSize: "1.125rem",
+              lineHeight: 1.7,
+              color: "var(--neutral-300)",
+              maxWidth: "600px",
+              margin: "0 auto",
+            }}
+          >
             Avyuct AI Labs serves hospitals and medical institutions across North America, Europe, Middle East, and Asia.
           </p>
         </div>
-        <div className="gm-map mt-8 max-w-4xl mx-auto">
+
+        {/* Map container */}
+        <div
+          className="gm-map"
+          style={{
+            maxWidth: "900px",
+            margin: "3rem auto 0 auto",
+          }}
+        >
           <WorldMap showPartners />
         </div>
       </div>

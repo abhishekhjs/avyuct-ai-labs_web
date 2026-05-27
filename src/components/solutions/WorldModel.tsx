@@ -122,15 +122,31 @@ export default function WorldModel() {
 
 
         {/* UAE Callout */}
-        <div className="w-full flex justify-center" style={{ marginTop: "8rem" }}>
-          <div className="wm-callout glass-card premium-card-padding max-w-2xl text-center" style={{ borderColor: "rgba(0, 102, 255, 0.3)" }}>
-            <p className="text-3xl" style={{ marginBottom: "1.5rem" }}>🇦🇪</p>
-            <h3 className="heading-sm">Sovereign AI Development</h3>
-            <p className="body-md premium-mt">
-              Developed entirely in the Emirates as UAE IP, pioneering Abu
-              Dhabi&apos;s shift from reactive triage to proactive predictive care.
-            </p>
-            <p className="label-text premium-mt">NOW BUILDING IN DUBAI</p>
+        <div className="w-full flex justify-center relative" style={{ marginTop: "8rem" }}>
+
+          <div className="wm-callout glass-card premium-card-padding max-w-2xl text-center relative z-10" style={{ border: "none" }}>
+            {/* Gradient Border via Mask */}
+            <div style={{
+              position: "absolute",
+              top: 0, right: 0, bottom: 0, left: 0,
+              borderRadius: "1rem",
+              padding: "2px",
+              background: "linear-gradient(135deg, #FF0000, #00732F, #000000)",
+              WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+              WebkitMaskComposite: "xor",
+              maskComposite: "exclude",
+              pointerEvents: "none",
+            }} />
+            
+            <div className="relative z-10">
+              <p className="text-3xl" style={{ marginBottom: "1.5rem" }}>🇦🇪</p>
+              <h3 className="heading-sm">Sovereign AI Development</h3>
+              <p className="body-md premium-mt">
+                Developed entirely in the Emirates as UAE IP, pioneering Abu
+                Dhabi&apos;s shift from reactive triage to proactive predictive care.
+              </p>
+              <p className="label-text premium-mt">NOW BUILDING IN DUBAI</p>
+            </div>
           </div>
         </div>
       </div>

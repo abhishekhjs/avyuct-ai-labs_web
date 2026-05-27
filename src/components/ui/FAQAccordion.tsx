@@ -30,10 +30,11 @@ export default function FAQAccordion({ items, className }: { items: FAQItem[]; c
       {items.map((item, i) => {
         const isOpen = openIndex === i;
         return (
-          <div key={i} className="faq-item glass-card mb-3 overflow-hidden">
+          <div key={i} className="faq-item overflow-hidden" style={{ marginBottom: "1.25rem", borderRadius: "1rem", background: "rgba(0, 0, 0, 0.02)", border: "1px solid rgba(0, 0, 0, 0.1)", backdropFilter: "blur(24px)" }}>
             <button
               onClick={() => toggle(i)}
-              className="w-full flex justify-between items-center p-5 text-left cursor-pointer"
+              className="w-full flex justify-between items-center text-left cursor-pointer"
+              style={{ padding: "1.5rem 1.75rem" }}
               aria-expanded={isOpen}
               aria-controls={`faq-answer-${i}`}
             >
@@ -54,8 +55,8 @@ export default function FAQAccordion({ items, className }: { items: FAQItem[]; c
                 opacity: isOpen ? 1 : 0,
               }}
             >
-              <div className="px-5 pb-5 pt-0 border-t border-[var(--glass-border)]">
-                <p className="body-md pt-4">{item.answer}</p>
+              <div style={{ padding: "0 1.75rem 1.5rem 1.75rem", borderTop: "1px solid rgba(0, 0, 0, 0.08)" }}>
+                <p className="body-md" style={{ paddingTop: "1.25rem" }}>{item.answer}</p>
               </div>
             </div>
           </div>

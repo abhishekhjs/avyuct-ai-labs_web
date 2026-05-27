@@ -23,25 +23,25 @@ export default function LocationsSection() {
   ];
 
   return (
-    <section ref={container} className="section-padding">
+    <section ref={container} className="section-padding" style={{ paddingTop: "8rem", paddingBottom: "8rem" }}>
       <div className="container-narrow">
-        <div className="loc-header text-center max-w-2xl mx-auto">
-          <p className="label-text mb-4">GLOBAL PRESENCE</p>
-          <h2 className="heading-lg">Global Innovation, Local Impact</h2>
+        <div className="loc-header max-w-2xl" style={{ textAlign: "center", margin: "0 auto 6rem auto", display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <p className="label-text" style={{ marginBottom: "1.5rem", textAlign: "center" }}>GLOBAL PRESENCE</p>
+          <h2 className="heading-lg" style={{ textAlign: "center" }}>Global Innovation, Local Impact</h2>
         </div>
-        <div className="loc-map mt-8 max-w-4xl mx-auto">
+        <div className="loc-map mx-auto" style={{ marginTop: "3rem", marginBottom: "6rem", maxWidth: "1000px" }}>
           <WorldMap />
         </div>
-        <div className="loc-cards grid grid-cols-1 lg:grid-cols-2 gap-10 mt-16">
+        <div className="loc-cards grid grid-cols-1 lg:grid-cols-2" style={{ gap: "4rem" }}>
           {locations.map((loc) => (
-            <div key={loc.city} className="loc-card glass-card p-10">
-              <p className="text-2xl mb-2">{loc.flag}</p>
-              <h3 className="heading-sm">{loc.name}</h3>
-              <p className="mono-text mt-1">{loc.city}</p>
-              <p className="body-md mt-1 text-sm">{loc.role}</p>
-              <ul className="mt-4 space-y-2">
+            <div key={loc.city} className="loc-card glass-card" style={{ padding: "4rem 3rem", borderRadius: "1.5rem" }}>
+              <p className="text-3xl" style={{ marginBottom: "1.5rem" }}>{loc.flag}</p>
+              <h3 className="heading-sm" style={{ marginBottom: "0.5rem" }}>{loc.name}</h3>
+              <p className="mono-text text-[var(--primary-blue)]" style={{ marginBottom: "1rem" }}>{loc.city}</p>
+              <p className="body-md text-sm" style={{ color: "var(--neutral-300)", marginBottom: "2rem" }}>{loc.role}</p>
+              <ul className="space-y-3">
                 {loc.capabilities.map((cap) => (
-                  <li key={cap} className="body-md text-sm flex gap-2">
+                  <li key={cap} className="body-md text-sm flex" style={{ gap: "0.75rem" }}>
                     <span className="text-[var(--primary-blue)] shrink-0">→</span>
                     {cap}
                   </li>

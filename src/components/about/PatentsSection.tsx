@@ -30,40 +30,40 @@ export default function PatentsSection() {
   }, { scope: container });
 
   return (
-    <section ref={container} className="section-padding relative overflow-hidden" style={{ background: "var(--deep-navy)" }}>
+    <section ref={container} className="section-padding relative overflow-hidden" style={{ background: "var(--deep-navy)", paddingTop: "8rem", paddingBottom: "8rem" }}>
       <div className="absolute inset-0 bg-grid pointer-events-none" />
       <div className="container-narrow relative z-10">
-        <div className="pat-header text-center max-w-2xl mx-auto">
-          <p className="label-text mb-4">INTELLECTUAL PROPERTY</p>
-          <h2 className="heading-lg">Protected Innovation</h2>
+        <div className="pat-header max-w-2xl" style={{ textAlign: "center", margin: "0 auto 6rem auto", display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <p className="label-text" style={{ marginBottom: "1.5rem", textAlign: "center" }}>INTELLECTUAL PROPERTY</p>
+          <h2 className="heading-lg" style={{ textAlign: "center" }}>Protected Innovation</h2>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12">
-          <div className="pat-grid grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: "4rem" }}>
+          <div className="pat-grid grid grid-cols-2" style={{ gap: "1.5rem" }}>
             {PATENTS.map((p) => (
-              <div key={p.title} className="pat-card glass-card p-5">
-                <h4 className="heading-sm text-sm">{p.title}</h4>
-                <p className="body-md text-xs mt-1">{p.desc}</p>
+              <div key={p.title} className="pat-card glass-card" style={{ padding: "2.5rem 2rem", borderRadius: "1.25rem", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                <h4 className="heading-sm" style={{ marginBottom: "0.5rem" }}>{p.title}</h4>
+                <p className="body-md text-sm" style={{ color: "var(--neutral-300)" }}>{p.desc}</p>
               </div>
             ))}
           </div>
-          <div>
-            <div className="pat-timeline space-y-4">
-              <h3 className="heading-sm mb-4">Innovation Timeline</h3>
+          <div className="glass-card" style={{ padding: "3rem", borderRadius: "1.5rem" }}>
+            <div className="pat-timeline space-y-6">
+              <h3 className="heading-sm" style={{ marginBottom: "2rem", fontSize: "1.5rem" }}>Innovation Timeline</h3>
               {MILESTONES.map((ms, i) => (
-                <div key={i} className="pat-milestone flex items-start gap-3">
-                  <div className="w-2.5 h-2.5 rounded-full bg-[var(--primary-blue)] mt-1.5 shrink-0" />
+                <div key={i} className="pat-milestone flex items-start" style={{ gap: "1rem" }}>
+                  <div className="w-3 h-3 rounded-full bg-[var(--primary-blue)] mt-1 shrink-0" />
                   <div>
-                    <p className="mono-text font-semibold text-xs">{ms.year}</p>
-                    <p className="body-md text-sm">{ms.title}</p>
+                    <p className="mono-text font-semibold text-sm" style={{ color: "var(--primary-blue)", marginBottom: "0.25rem" }}>{ms.year}</p>
+                    <p className="body-md text-base">{ms.title}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <div className="mt-8 space-y-2">
-              <h4 className="heading-sm text-sm mb-3">Regulatory Status</h4>
+            <div style={{ marginTop: "3rem" }} className="space-y-4">
+              <h4 className="heading-sm text-sm" style={{ marginBottom: "1rem" }}>Regulatory Status</h4>
               {REGULATORY.map((r) => (
-                <div key={r.label} className="flex items-center gap-2">
-                  <span style={{ color: r.color }} className="text-lg">{r.icon}</span>
+                <div key={r.label} className="flex items-center" style={{ gap: "0.75rem" }}>
+                  <span style={{ color: r.color }} className="text-xl">{r.icon}</span>
                   <span className="body-md text-sm">{r.label}</span>
                 </div>
               ))}

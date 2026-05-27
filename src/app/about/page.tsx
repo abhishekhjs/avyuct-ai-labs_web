@@ -5,7 +5,7 @@ import ApproachSection from "@/components/about/ApproachSection";
 import LeadershipSection from "@/components/about/LeadershipSection";
 import LocationsSection from "@/components/about/LocationsSection";
 import PatentsSection from "@/components/about/PatentsSection";
-import PressSection from "@/components/about/PressSection";
+// import PressSection from "@/components/about/PressSection";
 import AboutCTA from "@/components/about/AboutCTA";
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export default function AboutPage() {
       <LeadershipSection />
       <LocationsSection />
       <PatentsSection />
-      <PressSection />
+      {/* <PressSection /> */}
       <AboutCTA />
     </>
   );

@@ -44,17 +44,17 @@ export default function AboutCTA() {
   }, { scope: container });
 
   return (
-    <section ref={container} className="py-28 relative overflow-hidden" style={{ background: "var(--cta-gradient)" }}>
+    <section ref={container} className="relative overflow-hidden" style={{ background: "var(--cta-gradient)", paddingTop: "8rem", paddingBottom: "8rem" }}>
       <ParticleField className="absolute inset-0 z-0" particleCount={25} />
-      <div className="container-narrow relative z-10 text-center">
-        <h2 className="acta-heading heading-lg">Join Our Mission to Save Lives</h2>
-        <div className="acta-grid grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+      <div className="container-narrow relative z-10" style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <h2 className="acta-heading heading-lg" style={{ marginBottom: "6rem", textAlign: "center" }}>Join Our Mission to Save Lives</h2>
+        <div className="acta-grid grid grid-cols-1 md:grid-cols-3" style={{ gap: "2.5rem" }}>
           {CTAS.map((cta) => (
-            <div key={cta.title} className="acta-card glass-card p-8 flex flex-col items-center text-center">
-              <div className="mb-4">{cta.icon}</div>
-              <h3 className="heading-sm">{cta.title}</h3>
-              <p className="body-md mt-2 flex-1">{cta.desc}</p>
-              <Link href={cta.href} className={`mt-6 ${cta.primary ? "btn-primary" : "btn-secondary"}`}>
+            <div key={cta.title} className="acta-card glass-card flex flex-col items-center text-center" style={{ padding: "4rem 2rem", borderRadius: "1.5rem" }}>
+              <div style={{ marginBottom: "1.5rem" }}>{cta.icon}</div>
+              <h3 className="heading-sm" style={{ marginBottom: "1rem" }}>{cta.title}</h3>
+              <p className="body-md flex-1" style={{ color: "var(--neutral-300)", lineHeight: "1.6", marginBottom: "2rem" }}>{cta.desc}</p>
+              <Link href={cta.href} className={cta.primary ? "btn-primary" : "btn-secondary"}>
                 {cta.btnText}
               </Link>
             </div>
