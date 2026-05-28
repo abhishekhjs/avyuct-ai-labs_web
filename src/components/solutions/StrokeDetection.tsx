@@ -128,7 +128,10 @@ export default function StrokeDetection() {
                 </div>
               </div>
             ) : (
-              <BeforeAfterSlider />
+              <BeforeAfterSlider
+                beforeImage={activeTab === "lvo" ? "/lvo before.png" : "/dmvo before.png"}
+                afterImage={activeTab === "lvo" ? "/lvo after.png" : "/dmvo after.png"}
+              />
             )}
           </div>
         </div>

@@ -6,12 +6,16 @@ interface BeforeAfterSliderProps {
   beforeLabel?: string;
   afterLabel?: string;
   className?: string;
+  beforeImage?: string;
+  afterImage?: string;
 }
 
 export default function BeforeAfterSlider({
   beforeLabel = "Raw CTA Scan",
   afterLabel = "AI Detection Overlay",
   className = "",
+  beforeImage,
+  afterImage,
 }: BeforeAfterSliderProps) {
   const [sliderPosition, setSliderPosition] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -87,44 +91,50 @@ export default function BeforeAfterSlider({
     >
       {/* Before Layer — Raw CTA Scan */}
       <div className="absolute inset-0" aria-hidden="true">
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `
-              repeating-linear-gradient(
-                0deg,
-                rgba(255, 255, 255, 0.02) 0px,
-                rgba(255, 255, 255, 0.02) 1px,
-                transparent 1px,
-                transparent 4px
-              ),
-              repeating-linear-gradient(
-                90deg,
-                rgba(255, 255, 255, 0.015) 0px,
-                rgba(255, 255, 255, 0.015) 1px,
-                transparent 1px,
-                transparent 4px
-              ),
-              radial-gradient(ellipse at 45% 50%, rgba(120, 120, 130, 0.3) 0%, transparent 60%),
-              radial-gradient(ellipse at 55% 45%, rgba(100, 100, 110, 0.25) 0%, transparent 50%),
-              radial-gradient(circle at 48% 52%, rgba(80, 80, 90, 0.2) 0%, transparent 35%),
-              linear-gradient(180deg, #1a1a1f 0%, #111114 50%, #0d0d10 100%)
-            `,
-          }}
-        />
+        {beforeImage ? (
+          <img src={beforeImage} alt={beforeLabel} className="absolute inset-0 w-full h-full object-cover" />
+        ) : (
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `
+                repeating-linear-gradient(
+                  0deg,
+                  rgba(255, 255, 255, 0.02) 0px,
+                  rgba(255, 255, 255, 0.02) 1px,
+                  transparent 1px,
+                  transparent 4px
+                ),
+                repeating-linear-gradient(
+                  90deg,
+                  rgba(255, 255, 255, 0.015) 0px,
+                  rgba(255, 255, 255, 0.015) 1px,
+                  transparent 1px,
+                  transparent 4px
+                ),
+                radial-gradient(ellipse at 45% 50%, rgba(120, 120, 130, 0.3) 0%, transparent 60%),
+                radial-gradient(ellipse at 55% 45%, rgba(100, 100, 110, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 48% 52%, rgba(80, 80, 90, 0.2) 0%, transparent 35%),
+                linear-gradient(180deg, #1a1a1f 0%, #111114 50%, #0d0d10 100%)
+              `,
+            }}
+          />
+        )}
         {/* Simulated vessel-like structures */}
-        <div
-          className="absolute"
-          style={{
-            top: "30%",
-            left: "35%",
-            width: "30%",
-            height: "40%",
-            background:
-              "radial-gradient(ellipse, rgba(150, 150, 160, 0.15) 0%, transparent 70%)",
-            filter: "blur(2px)",
-          }}
-        />
+        {!beforeImage && (
+          <div
+            className="absolute"
+            style={{
+              top: "30%",
+              left: "35%",
+              width: "30%",
+              height: "40%",
+              background:
+                "radial-gradient(ellipse, rgba(150, 150, 160, 0.15) 0%, transparent 70%)",
+              filter: "blur(2px)",
+            }}
+          />
+        )}
         {/* Before label pill */}
         <div className="glass-card absolute left-3 top-3 rounded-full px-3 py-1.5 text-xs font-medium text-neutral-300">
           {beforeLabel}
@@ -139,104 +149,110 @@ export default function BeforeAfterSlider({
         }}
         aria-hidden="true"
       >
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `
-              repeating-linear-gradient(
-                0deg,
-                rgba(255, 255, 255, 0.02) 0px,
-                rgba(255, 255, 255, 0.02) 1px,
-                transparent 1px,
-                transparent 4px
-              ),
-              repeating-linear-gradient(
-                90deg,
-                rgba(255, 255, 255, 0.015) 0px,
-                rgba(255, 255, 255, 0.015) 1px,
-                transparent 1px,
-                transparent 4px
-              ),
-              radial-gradient(ellipse at 45% 50%, rgba(120, 120, 130, 0.3) 0%, transparent 60%),
-              radial-gradient(ellipse at 55% 45%, rgba(100, 100, 110, 0.25) 0%, transparent 50%),
-              radial-gradient(circle at 48% 52%, rgba(80, 80, 90, 0.2) 0%, transparent 35%),
-              linear-gradient(180deg, #1a1a1f 0%, #111114 50%, #0d0d10 100%)
-            `,
-          }}
-        />
-        {/* Blue-tinted overlay */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(0, 102, 255, 0.08) 0%, rgba(30, 58, 138, 0.12) 100%)",
-          }}
-        />
-        {/* AI Detection Markers */}
-        <div
-          className="absolute rounded-full border-2 border-accent-green"
-          style={{
-            top: "35%",
-            left: "40%",
-            width: "48px",
-            height: "48px",
-            boxShadow: "0 0 12px rgba(16, 185, 129, 0.4)",
-          }}
-        />
-        <div
-          className="absolute rounded-full border-2 border-accent-green"
-          style={{
-            top: "45%",
-            left: "52%",
-            width: "32px",
-            height: "32px",
-            boxShadow: "0 0 10px rgba(16, 185, 129, 0.35)",
-          }}
-        />
-        <div
-          className="absolute border-2 border-primary rounded-sm"
-          style={{
-            top: "28%",
-            left: "34%",
-            width: "80px",
-            height: "56px",
-            boxShadow: "0 0 14px rgba(0, 102, 255, 0.3)",
-          }}
-        />
-        <div
-          className="absolute rounded-full border border-accent-amber"
-          style={{
-            top: "55%",
-            left: "44%",
-            width: "24px",
-            height: "24px",
-            boxShadow: "0 0 8px rgba(245, 158, 11, 0.3)",
-          }}
-        />
-        {/* Connecting lines between markers */}
-        <svg
-          className="absolute inset-0 h-full w-full"
-          style={{ pointerEvents: "none" }}
-        >
-          <line
-            x1="62%"
-            y1="40%"
-            x2="58%"
-            y2="50%"
-            stroke="rgba(16, 185, 129, 0.3)"
-            strokeWidth="1"
-            strokeDasharray="4 4"
-          />
-          <line
-            x1="58%"
-            y1="50%"
-            x2="50%"
-            y2="60%"
-            stroke="rgba(245, 158, 11, 0.3)"
-            strokeWidth="1"
-            strokeDasharray="4 4"
-          />
-        </svg>
+        {afterImage ? (
+          <img src={afterImage} alt={afterLabel} className="absolute inset-0 w-full h-full object-cover" />
+        ) : (
+          <>
+            <div
+              className="absolute inset-0"
+              style={{
+                background: `
+                  repeating-linear-gradient(
+                    0deg,
+                    rgba(255, 255, 255, 0.02) 0px,
+                    rgba(255, 255, 255, 0.02) 1px,
+                    transparent 1px,
+                    transparent 4px
+                  ),
+                  repeating-linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.015) 0px,
+                    rgba(255, 255, 255, 0.015) 1px,
+                    transparent 1px,
+                    transparent 4px
+                  ),
+                  radial-gradient(ellipse at 45% 50%, rgba(120, 120, 130, 0.3) 0%, transparent 60%),
+                  radial-gradient(ellipse at 55% 45%, rgba(100, 100, 110, 0.25) 0%, transparent 50%),
+                  radial-gradient(circle at 48% 52%, rgba(80, 80, 90, 0.2) 0%, transparent 35%),
+                  linear-gradient(180deg, #1a1a1f 0%, #111114 50%, #0d0d10 100%)
+                `,
+              }}
+            />
+            {/* Blue-tinted overlay */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(0, 102, 255, 0.08) 0%, rgba(30, 58, 138, 0.12) 100%)",
+              }}
+            />
+            {/* AI Detection Markers */}
+            <div
+              className="absolute rounded-full border-2 border-accent-green"
+              style={{
+                top: "35%",
+                left: "40%",
+                width: "48px",
+                height: "48px",
+                boxShadow: "0 0 12px rgba(16, 185, 129, 0.4)",
+              }}
+            />
+            <div
+              className="absolute rounded-full border-2 border-accent-green"
+              style={{
+                top: "45%",
+                left: "52%",
+                width: "32px",
+                height: "32px",
+                boxShadow: "0 0 10px rgba(16, 185, 129, 0.35)",
+              }}
+            />
+            <div
+              className="absolute border-2 border-primary rounded-sm"
+              style={{
+                top: "28%",
+                left: "34%",
+                width: "80px",
+                height: "56px",
+                boxShadow: "0 0 14px rgba(0, 102, 255, 0.3)",
+              }}
+            />
+            <div
+              className="absolute rounded-full border border-accent-amber"
+              style={{
+                top: "55%",
+                left: "44%",
+                width: "24px",
+                height: "24px",
+                boxShadow: "0 0 8px rgba(245, 158, 11, 0.3)",
+              }}
+            />
+            {/* Connecting lines between markers */}
+            <svg
+              className="absolute inset-0 h-full w-full"
+              style={{ pointerEvents: "none" }}
+            >
+              <line
+                x1="62%"
+                y1="40%"
+                x2="58%"
+                y2="50%"
+                stroke="rgba(16, 185, 129, 0.3)"
+                strokeWidth="1"
+                strokeDasharray="4 4"
+              />
+              <line
+                x1="58%"
+                y1="50%"
+                x2="50%"
+                y2="60%"
+                stroke="rgba(245, 158, 11, 0.3)"
+                strokeWidth="1"
+                strokeDasharray="4 4"
+              />
+            </svg>
+          </>
+        )}
         {/* After label pill */}
         <div className="glass-card absolute left-3 top-3 rounded-full px-3 py-1.5 text-xs font-medium text-neutral-300">
           {afterLabel}

@@ -17,9 +17,31 @@ export default function ContactForm() {
   });
 
   useGSAP(() => {
-    gsap.from(".cf-field", { y: 25, opacity: 0, stagger: 0.06, duration: 0.6, ease: "power4.out", scrollTrigger: { trigger: ".cf-form", start: "top 75%" } });
-    gsap.from(".cf-info-card", { x: 50, opacity: 0, duration: 1, ease: "power4.out", scrollTrigger: { trigger: ".cf-info-card", start: "top 75%" } });
-    gsap.from(".cf-wrapper", { y: 40, opacity: 0, duration: 1, ease: "power4.out", scrollTrigger: { trigger: ".cf-wrapper", start: "top 80%" } });
+    gsap.from(".cf-field", {
+      y: 25,
+      autoAlpha: 0,
+      stagger: 0.06,
+      duration: 0.6,
+      ease: "power4.out",
+      immediateRender: false,
+      scrollTrigger: { trigger: ".cf-form", start: "top 75%" }
+    });
+    gsap.from(".cf-info-card", {
+      x: 50,
+      autoAlpha: 0,
+      duration: 1,
+      ease: "power4.out",
+      immediateRender: false,
+      scrollTrigger: { trigger: ".cf-info-card", start: "top 75%" }
+    });
+    gsap.from(".cf-wrapper", {
+      y: 40,
+      autoAlpha: 0,
+      duration: 1,
+      ease: "power4.out",
+      immediateRender: false,
+      scrollTrigger: { trigger: ".cf-wrapper", start: "top 80%" }
+    });
   }, { scope: container });
 
   const handleSubmit = (e: React.FormEvent) => {

@@ -140,6 +140,8 @@ export default function SolutionSection() {
                     beforeLabel="Raw CTA Scan"
                     afterLabel="AI Detection Overlay"
                     className="h-full rounded-2xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.5)] border border-neutral-800"
+                    beforeImage="/dmvo before.png"
+                    afterImage="/dmvo after.png"
                   />
                 </div>
 
