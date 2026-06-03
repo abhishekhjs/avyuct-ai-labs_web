@@ -37,7 +37,7 @@ export default function DeploymentArch() {
           <h2 className="heading-lg" style={{ textAlign: "center", width: "100%" }}>Zero-Latency Triage Architecture</h2>
           <p className="body-lg premium-mt" style={{ textAlign: "center", width: "100%", maxWidth: "42rem" }}>
             AI moves from the cloud to the scanner console. With distal
-            strokes, the bottleneck is no longer surgical access — it&apos;s
+            strokes, the bottleneck is no longer surgical access - it&apos;s
             precise localization.
           </p>
         </div>

@@ -72,7 +72,7 @@ export default function PressSection() {
           <p className="body-lg italic text-neutral-300">
             &ldquo;Avyuct AI Labs is pioneering the future of emergency neurodiagnostics with AI that detects what radiologists miss.&rdquo;
           </p>
-          <p className="mono-text mt-4 text-xs">— Healthcare Technology Review</p>
+          <p className="mono-text mt-4 text-xs">- Healthcare Technology Review</p>
         </div>
       </div>
     </section>

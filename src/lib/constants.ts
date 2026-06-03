@@ -11,12 +11,10 @@ export const NAV_LINKS = [
 
 
 /* ========================================
-   SOCIAL LINKS (PLACEHOLDER — UPDATE LATER)
+   SOCIAL LINKS (PLACEHOLDER - UPDATE LATER)
    ======================================== */
 export const SOCIAL_LINKS = {
-  linkedin: "https://linkedin.com/company/avyuct", // PLACEHOLDER
-  twitter: "https://twitter.com/avyuct", // PLACEHOLDER
-  youtube: "https://youtube.com/@avyuct", // PLACEHOLDER
+  linkedin: "https://www.linkedin.com/company/avyuct-ai-labs",
 } as const;
 
 /* ========================================
@@ -29,14 +27,14 @@ export const CONTACT = {
   calendly: "https://calendly.com/avyuct", // PLACEHOLDER
   headquarters: {
     name: "Headquarters",
-    city: "Herndon, Virginia, USA",
-    address: "123 Innovation Drive, Herndon, VA 22070, USA", // PLACEHOLDER
-    role: "Headquarters & AI Development",
+    city: "Dubai, UAE",
+    address: "Dubai, United Arab Emirates",
+    role: "Headquarters & World Model Development",
   },
   dubai: {
     name: "Innovation Hub",
     city: "Dubai, UAE",
-    address: "Dubai AI Campus, Business Bay, Dubai, UAE", // PLACEHOLDER
+    address: "Dubai, United Arab Emirates",
     role: "Innovation Hub & World Model Development",
   },
 } as const;
@@ -45,16 +43,16 @@ export const CONTACT = {
    HERO STATS
    ======================================== */
 export const HERO_STATS = [
-  { value: "86%", label: "Sensitivity" },
-  { value: "5", label: "US Patents" },
-  { value: "M2–M3", label: "Distal Detection" },
+  { value: "5", label: "US Patents", colorClass: "green" },
+  { value: "100%", label: "HIPAA Compliant", colorClass: "green" },
+  { value: "Active", label: "FDA Clearance in Progress", colorClass: "yellow" },
 ] as const;
 
 /* ========================================
    PROBLEM SECTION STATS
    ======================================== */
 export const PROBLEM_STATS = [
-  { value: 40, suffix: "s", label: "someone in the US has a stroke" },
+  { value: 10, suffix: " years", label: "strokes strike UAE residents earlier than global average" },
   { value: 12, suffix: "M+", label: "new strokes per year globally" },
   { value: 1.9, suffix: "M", label: "neurons die every 60 seconds" },
   { value: 40, suffix: "%+", label: "DMVO cases missed by radiologists" },
@@ -103,7 +101,7 @@ export const CLINICAL_PILLARS = [
   {
     title: "Edge-Native Deployment",
     description:
-      "AI moves from the cloud to the scanner console for 'zero-latency' triage. With distal strokes, the bottleneck is no longer surgical access — it's precise localization.",
+      "AI moves from the cloud to the scanner console for 'zero-latency' triage. With distal strokes, the bottleneck is no longer surgical access - it's precise localization.",
     icon: "edge",
   },
   {
@@ -238,20 +236,20 @@ export const FAQ_DATA = [
 ] as const;
 
 /* ========================================
-   TEAM DATA (PLACEHOLDER — UPDATE LATER)
+   TEAM DATA (PLACEHOLDER - UPDATE LATER)
    ======================================== */
 export const TEAM_MEMBERS = [
   {
     name: "Rajesh Aggarwal",
     role: "Founder & CEO, Avyuct Inc. & Avyuct AI Labs",
-    bio: "Founder and Chief Data Scientist with a PhD in Applied Mathematics and Parallel Computing from Columbia University. Deep expertise in AI-driven predictive modeling and anomaly detection.",
+    bio: "Founder and Chief Data Scientist with a <strong>PhD in Applied Mathematics and Parallel Computing from Columbia University.</strong> Deep expertise in AI-driven predictive modeling and anomaly detection.",
     image: "/founder.png",
     linkedin: "https://www.linkedin.com/in/rajesh-aggarwal-aa269120/",
   },
   {
     name: "Suhaib Bin Yousouf",
     role: "Co-Founder & Lead Data Scientist, Avyuct AI Labs",
-    bio: "Specializes in Medical AI and Computer Vision. Architect behind the Universal Vascular World Models. Holds an M.Tech from IIT Guwahati and B.Tech from NIT Warangal.",
+    bio: "Specializes in Medical AI and Computer Vision. Architect behind the Universal Vascular World Models. <strong>Holds an M.Tech from IIT Guwahati and B.Tech from NIT Warangal.</strong>",
     image: "/cofounder.jpg",
     linkedin: "https://www.linkedin.com/in/bsuhaib-0a6893a6/",
   }
@@ -275,7 +273,7 @@ export const STROKE_TABS = [
   {
     id: "lvo",
     label: "LVO Detection",
-    headline: "M1 Segment — The Critical Emergency",
+    headline: "M1 Segment - The Critical Emergency",
     description:
       "Visible on standard CTA. Established detection protocols exist. Avyuct builds precision AI for faster, more reliable triage at scale.",
     stats: [
@@ -287,9 +285,9 @@ export const STROKE_TABS = [
   {
     id: "dmvo",
     label: "DMVO Detection",
-    headline: "M3 Segment — The Hidden Stroke",
+    headline: "M3 Segment - The Hidden Stroke",
     description:
-      "Difficult to see on standard imaging. Clinicians can — and do — miss it. Patients deteriorate without treatment.",
+      "Difficult to see on standard imaging. Clinicians can - and do - miss it. Patients deteriorate without treatment.",
     stats: [
       { label: "Sensitivity", value: "86% (vs. 60% unaided)" },
       { label: "Coverage", value: "25% of all stroke cases" },

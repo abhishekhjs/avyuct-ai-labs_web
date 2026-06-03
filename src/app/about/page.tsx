@@ -7,6 +7,7 @@ import LocationsSection from "@/components/about/LocationsSection";
 import PatentsSection from "@/components/about/PatentsSection";
 // import PressSection from "@/components/about/PressSection";
 import AboutCTA from "@/components/about/AboutCTA";
+import Newsletter from "@/components/contact/Newsletter";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -18,13 +19,14 @@ export default function AboutPage() {
   return (
     <>
       <AboutHero />
+      <LeadershipSection />
       <ChallengeSection />
       <ApproachSection />
-      <LeadershipSection />
-      <LocationsSection />
-      <PatentsSection />
+      {/* <LocationsSection />
+      <PatentsSection /> */}
       {/* <PressSection /> */}
-      <AboutCTA />
+      {/* <AboutCTA /> */}
+      <Newsletter />
     </>
   );
 }

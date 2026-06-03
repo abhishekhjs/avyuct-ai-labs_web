@@ -144,7 +144,7 @@ export default function ProblemSection() {
             <h2 className="heading-lg leading-tight">The Stroke No One Sees Coming.</h2>
             <p className="body-lg mt-8 text-neutral-300 leading-relaxed">
               Distal Medium Vessel Occlusion (DMVO) accounts for up to 25% of
-              strokes — yet standard imaging and clinical assessment routinely
+              strokes - yet standard imaging and clinical assessment routinely
               misses it.
             </p>
           </div>
@@ -175,7 +175,7 @@ export default function ProblemSection() {
                 </div>
               ))}
 
-              {/* LVO — Visible */}
+              {/* LVO - Visible */}
               <div className="problem-card glass-card premium-card-padding flex flex-col items-center justify-center text-center w-full lg:absolute lg:inset-0">
                 <p className="label-text mb-6 text-[var(--accent-green)] tracking-widest text-sm">
                   M1 LARGE VESSEL OCCLUSION
@@ -190,7 +190,7 @@ export default function ProblemSection() {
                 </div>
               </div>
 
-              {/* DMVO — Missed */}
+              {/* DMVO - Missed */}
               <div className="problem-card glass-card premium-card-padding flex flex-col items-center justify-center text-center w-full lg:absolute lg:inset-0">
                 <p className="label-text mb-6 text-[var(--accent-red)] tracking-widest text-sm">
                   M3 DISTAL OCCLUSION

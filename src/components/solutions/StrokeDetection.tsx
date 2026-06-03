@@ -36,7 +36,7 @@ export default function StrokeDetection() {
         <div className="stroke-header w-full" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", margin: "0 auto" }}>
           <p className="label-text" style={{ marginBottom: "1rem", textAlign: "center", width: "100%" }}>STROKE DETECTION SUITE</p>
           <h2 className="heading-lg" style={{ textAlign: "center", width: "100%" }}>
-            Detecting Strokes Across All Vessel Segments
+            Detecting and Localizing Strokes Across All Vessel Segments
           </h2>
         </div>
 

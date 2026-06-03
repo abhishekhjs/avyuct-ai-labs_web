@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import { CAPABILITIES } from "@/lib/constants";
 import GlassCard from "@/components/ui/GlassCard";
 import BeforeAfterSlider from "@/components/ui/BeforeAfterSlider";
+import NeuralNetwork from "@/components/svg/NeuralNetwork";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -66,7 +67,7 @@ export default function SolutionSection() {
         
         const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: pinContainer.current,
+            trigger: container.current,
             start: "top top",
             end: () => `+=${cards.length * 150}vh`,
             pin: true,
@@ -112,7 +113,9 @@ export default function SolutionSection() {
   );
 
   return (
-    <section ref={container} className="relative">
+    <section ref={container} className="relative overflow-hidden">
+      <NeuralNetwork className="absolute top-0 left-0 w-full h-[120%] md:h-[150%] z-0 pointer-events-none opacity-30" />
+
       {/* Pinned Container for Header and Stack */}
       <div ref={pinContainer} className="container-narrow relative z-10 lg:h-screen flex flex-col lg:flex-row lg:items-center premium-gap-xl w-full py-24 lg:py-0 overflow-hidden">
         
@@ -125,7 +128,7 @@ export default function SolutionSection() {
               <span className="text-gradient">miss.</span>
             </h2>
             <p className="body-lg mt-8 text-neutral-300 leading-relaxed">
-              Autonomous Medical Intelligence — from emergency triage to
+              Autonomous Medical Intelligence - from emergency triage to
               population-scale screening.
             </p>
           </div>

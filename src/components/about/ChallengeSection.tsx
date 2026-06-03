@@ -28,7 +28,7 @@ export default function ChallengeSection() {
           <div className="ch-col glass-card" style={{ padding: "3rem 2rem", display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <h3 className="heading-sm" style={{ marginBottom: "1.5rem" }}>Global Crisis</h3>
             <p className="text-3xl font-black text-gradient" style={{ marginBottom: "0.75rem" }}>12M+</p>
-            <p className="body-md">new strokes per year worldwide — the #2 cause of death globally.</p>
+            <p className="body-md">new strokes per year worldwide - the #2 cause of death globally.</p>
             <p className="text-2xl font-bold text-gradient" style={{ marginTop: "2rem", marginBottom: "0.5rem" }}>1.9M</p>
             <p className="body-md">neurons die every 60 seconds without treatment.</p>
           </div>

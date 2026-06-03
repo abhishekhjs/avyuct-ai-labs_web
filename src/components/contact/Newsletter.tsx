@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { subscribeNewsletter } from "@/app/actions";
 
 if (typeof window !== "undefined") { gsap.registerPlugin(ScrollTrigger); }
 
@@ -11,14 +12,29 @@ export default function Newsletter() {
   const container = useRef<HTMLElement>(null);
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useGSAP(() => {
     gsap.from(".nl-section", { y: 40, opacity: 0, duration: 1, ease: "power4.out", scrollTrigger: { trigger: ".nl-section", start: "top 85%" } });
   }, { scope: container });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) setSubmitted(true);
+    if (!email) return;
+
+    setLoading(true);
+    setError(null);
+
+    const result = await subscribeNewsletter(email);
+
+    setLoading(false);
+
+    if (result.success) {
+      setSubmitted(true);
+    } else {
+      setError(result.error || "Something went wrong.");
+    }
   };
 
   return (
@@ -60,7 +76,7 @@ export default function Newsletter() {
               transform: "translateX(-50%)",
               width: "200px",
               height: "2px",
-              background: "linear-gradient(90deg, transparent, var(--primary-blue), transparent)",
+              background: "linear-gradient(90deg, transparent, var(--avyuct-green), transparent)",
               borderRadius: "2px",
             }}
           />
@@ -135,7 +151,7 @@ export default function Newsletter() {
                   margin: "0 auto",
                   borderRadius: "0.75rem",
                   overflow: "hidden",
-                  border: "1px solid var(--glass-border)",
+                  border: `1px solid ${error ? "rgba(239, 68, 68, 0.4)" : "var(--glass-border)"}`,
                   background: "rgba(0, 0, 0, 0.02)",
                 }}
                 className="nl-form-row"
@@ -143,9 +159,10 @@ export default function Newsletter() {
                 <input
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => { setEmail(e.target.value); setError(null); }}
                   placeholder="Enter your email"
                   required
+                  disabled={loading}
                   style={{
                     flex: 1,
                     padding: "0.875rem 1rem",
@@ -154,25 +171,40 @@ export default function Newsletter() {
                     color: "var(--neutral-50)",
                     fontSize: "0.9375rem",
                     outline: "none",
+                    opacity: loading ? 0.6 : 1,
                   }}
                 />
                 <button
                   type="submit"
+                  disabled={loading}
                   style={{
                     padding: "0.875rem 1.75rem",
-                    background: "var(--primary-blue)",
+                    background: "var(--avyuct-green)",
                     color: "white",
                     fontWeight: 600,
                     fontSize: "0.875rem",
                     border: "none",
-                    cursor: "pointer",
+                    cursor: loading ? "not-allowed" : "pointer",
                     transition: "background 0.3s ease",
                     flexShrink: 0,
+                    opacity: loading ? 0.7 : 1,
                   }}
                 >
-                  Subscribe
+                  {loading ? "Subscribing..." : "Subscribe"}
                 </button>
               </form>
+
+              {error && (
+                <p
+                  style={{
+                    fontSize: "0.8125rem",
+                    color: "var(--accent-red)",
+                    marginTop: "0.75rem",
+                  }}
+                >
+                  {error}
+                </p>
+              )}
 
               <p
                 style={{

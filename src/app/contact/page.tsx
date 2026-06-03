@@ -15,10 +15,10 @@ export default function ContactPage() {
   return (
     <>
       <ContactForm />
-      <FAQSection />
+      {/* <FAQSection />
       <AltContact />
-      <GlobalMap />
-      <Newsletter />
+      <GlobalMap /> */}
+
     </>
   );
 }

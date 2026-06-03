@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   NAV_LINKS,
   SOCIAL_LINKS,
@@ -82,65 +83,29 @@ function MailIcon() {
 /* ── Footer Component (Server Component) ────────────────────────── */
 export default function Footer() {
   return (
-    <footer className="relative bg-[#0a0a0a] border-t border-white/10 overflow-hidden text-white">
+    <footer className="relative bg-[var(--avyuct-mint)] border-t border-[var(--avyuct-slate)]/10 overflow-hidden text-[var(--avyuct-slate)]">
       {/* Premium Background Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[var(--primary-blue)]/10 blur-[150px] rounded-full pointer-events-none opacity-50" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[var(--avyuct-green)]/10 blur-[150px] rounded-full pointer-events-none opacity-60" />
       
       <div className="relative container-narrow" style={{ paddingTop: '8rem', paddingBottom: '8rem' }}>
         {/* ── Three-column grid ────────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-3" style={{ gap: '6rem' }}>
-          {/* Column 1 — Company */}
+          {/* Column 1 - Company */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
             {/* Logo */}
-            <Link href="/" className="inline-flex items-center gap-3 group relative">
-              <div className="absolute inset-0 bg-[var(--primary-blue)]/30 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-              <svg
-                viewBox="0 0 28 28"
-                fill="none"
-                className="w-8 h-8 relative z-10"
-                aria-hidden="true"
-              >
-                <circle
-                  cx="14"
-                  cy="14"
-                  r="3"
-                  fill="var(--primary-blue)"
-                  opacity="0.9"
-                  className="group-hover:scale-110 transition-transform duration-500"
-                />
-                <circle
-                  cx="14"
-                  cy="14"
-                  r="10"
-                  stroke="var(--primary-blue)"
-                  strokeWidth="1.2"
-                  opacity="0.3"
-                  className="group-hover:stroke-[var(--secondary-blue)] group-hover:opacity-50 transition-all duration-500"
-                />
-                <path
-                  d="M14 4v7M14 17v7M4 14h7M17 14h7"
-                  stroke="var(--primary-blue)"
-                  strokeWidth="1.2"
-                  strokeLinecap="round"
-                  opacity="0.5"
-                />
-                <path
-                  d="M7.1 7.1l4.9 4.9M16 16l4.9 4.9M20.9 7.1l-4.9 4.9M12 16l-4.9 4.9"
-                  stroke="var(--secondary-blue)"
-                  strokeWidth="1"
-                  strokeLinecap="round"
-                  opacity="0.4"
-                  className="group-hover:rotate-90 origin-center transition-transform duration-700"
-                />
-              </svg>
-              <span className="text-xl font-bold tracking-tight text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[var(--primary-blue)] transition-all duration-300">
-                Avyuct{" "}
-                <span className="text-[var(--primary-blue)]">AI Labs</span>
-              </span>
+            <Link href="/" className="inline-flex items-center gap-3 group relative bg-black/5 p-2 rounded-xl border border-black/5 hover:bg-black/10 transition-colors duration-300 w-max">
+              <div className="absolute inset-0 bg-[var(--avyuct-green)]/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+              <Image
+                src="/avyuct-logo-v2.png"
+                alt="Avyuct AI Labs Logo"
+                width={200}
+                height={60}
+                className="h-12 w-auto object-contain relative z-10 transition-transform duration-500 group-hover:scale-105"
+              />
             </Link>
 
-            <p className="text-white leading-relaxed max-w-sm text-sm lg:text-base">
-              Pioneering AI-powered vascular health solutions. Detecting the
+            <p className="text-[var(--avyuct-slate-light)] leading-relaxed max-w-sm text-sm lg:text-base font-medium">
+              Pioneering AI-powered vascular health solutions. Detecting and localizing the
               strokes no one sees coming with advanced world models.
             </p>
 
@@ -150,43 +115,25 @@ export default function Footer() {
                 href={SOCIAL_LINKS.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group p-2.5 rounded-full bg-white/5 border border-white/10 text-white hover:bg-[var(--primary-blue)] hover:border-[var(--primary-blue)] hover:text-white hover:scale-110 hover:shadow-[0_0_20px_rgba(0,112,243,0.4)] transition-all duration-300"
+                className="group p-2.5 rounded-full bg-black/5 border border-black/5 text-[var(--avyuct-slate)] hover:bg-[var(--avyuct-slate)] hover:border-[var(--avyuct-slate)] hover:text-white hover:scale-110 hover:shadow-[0_0_20px_rgba(43,63,76,0.3)] transition-all duration-300"
                 aria-label="LinkedIn"
               >
                 <LinkedInIcon />
               </a>
-              <a
-                href={SOCIAL_LINKS.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group p-2.5 rounded-full bg-white/5 border border-white/10 text-white hover:bg-[var(--primary-blue)] hover:border-[var(--primary-blue)] hover:text-white hover:scale-110 hover:shadow-[0_0_20px_rgba(0,112,243,0.4)] transition-all duration-300"
-                aria-label="X (formerly Twitter)"
-              >
-                <XIcon />
-              </a>
-              <a
-                href={SOCIAL_LINKS.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group p-2.5 rounded-full bg-white/5 border border-white/10 text-white hover:bg-[#ff0000] hover:border-[#ff0000] hover:text-white hover:scale-110 hover:shadow-[0_0_20px_rgba(255,0,0,0.4)] transition-all duration-300"
-                aria-label="YouTube"
-              >
-                <YouTubeIcon />
-              </a>
             </div>
           </div>
 
-          {/* Column 2 — Quick Links */}
+          {/* Column 2 - Quick Links */}
           <div className="lg:pl-8">
-            <h3 className="text-sm font-semibold tracking-wider text-white uppercase mb-8 opacity-90" style={{ marginBottom: '2.5rem' }}>Quick Links</h3>
+            <h3 className="text-sm font-bold tracking-wider text-[var(--avyuct-slate)] uppercase mb-8" style={{ marginBottom: '2.5rem' }}>Quick Links</h3>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group inline-flex items-center text-white hover:text-white transition-colors duration-300 text-sm lg:text-base"
+                    className="group inline-flex items-center text-[var(--avyuct-slate-light)] font-medium hover:text-[var(--avyuct-slate)] transition-colors duration-300 text-sm lg:text-base"
                   >
-                    <span className="w-0 h-[1px] bg-[var(--primary-blue)] mr-0 group-hover:w-4 group-hover:mr-2 transition-all duration-300 opacity-0 group-hover:opacity-100"></span>
+                    <span className="w-0 h-[1px] bg-[var(--avyuct-green)] mr-0 group-hover:w-4 group-hover:mr-2 transition-all duration-300 opacity-0 group-hover:opacity-100"></span>
                     {link.label}
                   </Link>
                 </li>
@@ -194,7 +141,7 @@ export default function Footer() {
               <li className="pt-2">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--primary-blue)]/10 border border-[var(--primary-blue)]/30 text-[var(--primary-blue)] hover:bg-[var(--primary-blue)] hover:text-white transition-all duration-300 text-sm font-medium group"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--avyuct-green)]/10 border border-[var(--avyuct-green)]/30 text-[var(--avyuct-dark-green)] hover:bg-[var(--avyuct-green)] hover:text-white transition-all duration-300 text-sm font-bold group"
                 >
                   Request Demo
                   <span className="transform transition-transform duration-300 group-hover:translate-x-1">→</span>
@@ -203,54 +150,30 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3 — Contact */}
+          {/* Column 3 - Contact */}
           <div>
-            <h3 className="text-sm font-semibold tracking-wider text-white uppercase mb-8 opacity-90" style={{ marginBottom: '2.5rem' }}>Contact</h3>
+            <h3 className="text-sm font-bold tracking-wider text-[var(--avyuct-slate)] uppercase mb-8" style={{ marginBottom: '2.5rem' }}>Contact</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-              {/* HQ */}
+              {/* Location */}
               <div className="flex items-start gap-3 group">
-                <div className="p-2 rounded-lg bg-white/5 text-[var(--primary-blue)] group-hover:bg-[var(--primary-blue)] group-hover:text-white transition-colors duration-300">
+                <div className="p-2 rounded-lg bg-black/5 text-[var(--avyuct-green)] group-hover:bg-[var(--avyuct-green)] group-hover:text-white transition-colors duration-300">
                   <MapPinIcon />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-white group-hover:text-white transition-colors">
-                    {CONTACT.headquarters.name}
-                  </p>
-                  <p className="text-sm text-white mt-1">
+                  <p className="text-sm text-[var(--avyuct-slate-light)] font-medium" style={{ marginTop: "0.25rem" }}>
                     {CONTACT.headquarters.address}
-                  </p>
-                  <p className="text-xs text-[var(--primary-blue)] font-medium mt-1.5 opacity-90">
-                    {CONTACT.headquarters.role}
-                  </p>
-                </div>
-              </div>
-
-              {/* Dubai */}
-              <div className="flex items-start gap-3 group">
-                <div className="p-2 rounded-lg bg-white/5 text-[var(--primary-blue)] group-hover:bg-[var(--primary-blue)] group-hover:text-white transition-colors duration-300">
-                  <MapPinIcon />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-white group-hover:text-white transition-colors">
-                    {CONTACT.dubai.name}
-                  </p>
-                  <p className="text-sm text-white mt-1">
-                    {CONTACT.dubai.address}
-                  </p>
-                  <p className="text-xs text-[var(--primary-blue)] font-medium mt-1.5 opacity-90">
-                    {CONTACT.dubai.role}
                   </p>
                 </div>
               </div>
 
               {/* Email */}
               <div className="flex items-center gap-3 pt-2">
-                <div className="p-2 rounded-lg bg-white/5 text-[var(--primary-blue)]">
+                <div className="p-2 rounded-lg bg-black/5 text-[var(--avyuct-green)] group-hover:bg-[var(--avyuct-green)] group-hover:text-white transition-colors duration-300">
                   <MailIcon />
                 </div>
                 <a
                   href={`mailto:${CONTACT.email}`}
-                  className="text-sm font-medium text-white hover:text-[var(--primary-blue)] transition-colors duration-300"
+                  className="text-sm font-bold text-[var(--avyuct-slate)] hover:text-[var(--avyuct-green)] transition-colors duration-300"
                 >
                   {CONTACT.email}
                 </a>
@@ -260,19 +183,19 @@ export default function Footer() {
         </div>
 
         {/* ── Bottom bar ───────────────────────────────────── */}
-        <div className="border-t border-white/10" style={{ marginTop: '6rem', paddingTop: '3rem' }}>
+        <div className="border-t border-[var(--avyuct-slate)]/10" style={{ marginTop: '6rem', paddingTop: '3rem' }}>
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <p className="text-sm text-white">
+            <p className="text-sm text-[var(--avyuct-slate-light)] font-medium">
               © {new Date().getFullYear()} Avyuct AI Labs. All rights reserved.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
-              <span className="text-xs font-mono tracking-wider text-white bg-white/10 px-3 py-1 rounded-full border border-white/10">
+              <span className="text-xs font-mono font-bold tracking-wider text-[var(--avyuct-slate)] bg-black/5 px-3 py-1 rounded-full border border-black/5">
                 {FOOTER_BADGES.join(" • ")}
               </span>
-              <span className="hidden sm:inline text-white">|</span>
-              <span className="text-xs font-medium tracking-wide text-white uppercase">
-                Herndon, VA <span className="text-[var(--primary-blue)] mx-1">•</span> Dubai, UAE
+              <span className="hidden sm:inline text-[var(--avyuct-slate)]/30">|</span>
+              <span className="text-xs font-bold tracking-wide text-[var(--avyuct-slate)] uppercase">
+                Herndon, VA <span className="text-[var(--avyuct-green)] mx-1">•</span> Dubai, UAE
               </span>
             </div>
           </div>

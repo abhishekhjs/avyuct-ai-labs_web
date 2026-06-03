@@ -9,7 +9,7 @@ if (typeof window !== "undefined") {
    EASING CONSTANTS
    ======================================== */
 export const EASE = {
-  /** Rapid start, extremely gradual slow down — entrance reveals */
+  /** Rapid start, extremely gradual slow down - entrance reveals */
   POWER4_OUT: "power4.out",
   /** Heavy, cinematic transitions */
   EXPO_OUT: "expo.out",

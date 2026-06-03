@@ -41,34 +41,30 @@ export default function SolutionsCTA() {
 
   return (
     <section ref={container} className="premium-footer-padding relative overflow-hidden" style={{ background: "#ffffff" }}>
-      {/* S-Shape Gradient Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden">
-        <div className="relative w-full max-w-[1400px] h-full opacity-80">
-          {/* Top Right Cone */}
-          <div 
-            className="absolute top-[-10%] right-[10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] rounded-full mix-blend-multiply"
-            style={{
-              background: "conic-gradient(from 210deg at 50% 50%, #ffffff 0%, #00ffff 30%, #00bfff 60%, #0077ff 80%, #ffffff 100%)",
-              filter: "blur(20px)"
-            }}
-          />
-          {/* Bottom Left Cone */}
-          <div 
-            className="absolute bottom-[-10%] left-[10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] rounded-full mix-blend-multiply"
-            style={{
-              background: "conic-gradient(from 30deg at 50% 50%, #ffffff 0%, #00ffff 30%, #00bfff 60%, #0077ff 80%, #ffffff 100%)",
-              filter: "blur(20px)"
-            }}
-          />
-        </div>
+      {/* S-Shape Gradient Background - lightweight radial gradients */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {/* Top Right Glow */}
+        <div 
+          className="absolute top-[-20%] right-[-5%] w-[70vw] h-[70vw] max-w-[900px] max-h-[900px] rounded-full opacity-60"
+          style={{
+            background: "radial-gradient(circle at center, rgba(0, 191, 255, 0.35) 0%, rgba(0, 119, 255, 0.15) 40%, transparent 70%)",
+            transform: "translateZ(0)",
+          }}
+        />
+        {/* Bottom Left Glow */}
+        <div 
+          className="absolute bottom-[-20%] left-[-5%] w-[70vw] h-[70vw] max-w-[900px] max-h-[900px] rounded-full opacity-60"
+          style={{
+            background: "radial-gradient(circle at center, rgba(0, 255, 255, 0.3) 0%, rgba(0, 119, 255, 0.12) 40%, transparent 70%)",
+            transform: "translateZ(0)",
+          }}
+        />
       </div>
 
       <div className="container-narrow relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 premium-gap-xl items-center">
-          {/* Left — Benefits */}
+          {/* Left - Benefits */}
           <div className="scta-left relative">
-            {/* White Backlight Glow to guarantee black text readability over any blue patches */}
-            <div className="absolute inset-0 bg-white/80 blur-3xl -z-10 rounded-full scale-125" />
             
             <h2 className="heading-lg" style={{ color: "#000000" }}>Ready to Deploy Avyuct?</h2>
             <p className="body-lg premium-mt" style={{ color: "#111111", fontWeight: 500 }}>
@@ -87,7 +83,7 @@ export default function SolutionsCTA() {
             </div>
           </div>
 
-          {/* Right — Form Mock */}
+          {/* Right - Form Mock */}
           <div className="scta-right glass-card premium-card-padding shadow-2xl" style={{ background: "rgba(10, 15, 30, 0.9)", borderColor: "rgba(255,255,255,0.1)" }}>
             <h3 className="heading-md" style={{ marginBottom: "1.5rem", color: "#ffffff" }}>Request a Demo</h3>
             <div className="flex flex-col" style={{ gap: "1rem" }}>

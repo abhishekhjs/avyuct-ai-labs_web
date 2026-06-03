@@ -111,7 +111,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       aria-modal={isOpen}
       aria-label="Mobile navigation menu"
     >
-      {/* ── Nav links — large, stacked, centered ─────────── */}
+      {/* ── Nav links - large, stacked, centered ─────────── */}
       <nav className="flex flex-col items-center gap-6 mb-12">
         {NAV_LINKS.map((link) => {
           const isActive = pathname === link.href;

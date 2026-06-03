@@ -6,12 +6,15 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { CONTACT, SOCIAL_LINKS } from "@/lib/constants";
 import NeuralNetwork from "@/components/svg/NeuralNetwork";
+import { submitContactForm } from "@/app/actions";
 
 if (typeof window !== "undefined") { gsap.registerPlugin(ScrollTrigger); }
 
 export default function ContactForm() {
   const container = useRef<HTMLElement>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({
     name: "", email: "", institution: "", role: "", phone: "", country: "", requestType: "demo", message: "", consent: false,
   });
@@ -44,9 +47,30 @@ export default function ContactForm() {
     });
   }, { scope: container });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError(null);
+
+    const result = await submitContactForm({
+      name: form.name,
+      email: form.email,
+      institution: form.institution,
+      role: form.role,
+      phone: form.phone,
+      country: form.country,
+      requestType: form.requestType,
+      message: form.message,
+      consent: form.consent,
+    });
+
+    setLoading(false);
+
+    if (result.success) {
+      setSubmitted(true);
+    } else {
+      setError(result.error || "Something went wrong.");
+    }
   };
 
   const update = (field: string, value: string | boolean) => setForm({ ...form, [field]: value });
@@ -80,7 +104,7 @@ export default function ContactForm() {
     <section
       ref={container}
       style={{
-        paddingTop: "clamp(8rem, 16vh, 12rem)",
+        paddingTop: "clamp(5rem, 8vh, 6rem)",
         paddingBottom: "clamp(4rem, 10vh, 7rem)",
         overflow: "hidden",
         position: "relative",
@@ -97,7 +121,7 @@ export default function ContactForm() {
           zIndex: 1,
         }}
       >
-        {/* Section Header — centered */}
+        {/* Section Header - centered */}
         <div
           className="cf-wrapper"
           style={{
@@ -105,19 +129,6 @@ export default function ContactForm() {
             marginBottom: "3.5rem",
           }}
         >
-          <p
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.75rem",
-              fontWeight: 500,
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              color: "var(--primary-blue)",
-              marginBottom: "1rem",
-            }}
-          >
-            Contact Us
-          </p>
           <h2
             className="heading-lg"
             style={{ marginBottom: "0.75rem" }}
@@ -133,7 +144,7 @@ export default function ContactForm() {
               margin: "0 auto",
             }}
           >
-            Fill out the form and our team will get back to you within 24 hours to schedule your personalized demo.
+            Fill out the form and our team will get back to you shortly to schedule your personalized demo.
           </p>
         </div>
 
@@ -178,7 +189,7 @@ export default function ContactForm() {
                   left: 0,
                   right: 0,
                   height: "3px",
-                  background: "linear-gradient(90deg, var(--primary-blue) 0%, var(--secondary-blue) 50%, var(--accent-green) 100%)",
+                  background: "linear-gradient(90deg, var(--avyuct-dark-green) 0%, var(--primary-blue) 50%, var(--avyuct-light-green) 100%)",
                   borderRadius: "1.5rem 1.5rem 0 0",
                   zIndex: 2,
                 }}
@@ -224,7 +235,7 @@ export default function ContactForm() {
                       </div>
                       <h3 className="heading-sm" style={{ marginBottom: "0.5rem" }}>Message Sent!</h3>
                       <p style={{ fontSize: "1rem", color: "var(--neutral-400)", lineHeight: 1.7 }}>
-                        We&apos;ll get back to you within 24 hours.
+                        We&apos;ll get back to you shortly.
                       </p>
                     </div>
                   ) : (
@@ -269,7 +280,7 @@ export default function ContactForm() {
                         </div>
                         <div className="cf-field">
                           <label style={labelStyle}>Phone</label>
-                          <input type="tel" value={form.phone} onChange={(e) => update("phone", e.target.value)} style={inputStyle} />
+                          <input type="tel" value={form.phone} onChange={(e) => update("phone", e.target.value.replace(/\D/g, ""))} style={inputStyle} />
                         </div>
                       </div>
 
@@ -313,31 +324,26 @@ export default function ContactForm() {
                         />
                       </div>
 
-                      <div
-                        className="cf-field"
-                        style={{
-                          display: "flex",
-                          alignItems: "flex-start",
-                          gap: "0.625rem",
-                          marginBottom: "1.75rem",
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={form.consent}
-                          onChange={(e) => update("consent", e.target.checked)}
+
+                      {error && (
+                        <div
                           style={{
-                            marginTop: "0.2rem",
-                            accentColor: "var(--primary-blue)",
+                            padding: "0.75rem 1rem",
+                            borderRadius: "0.75rem",
+                            background: "rgba(239, 68, 68, 0.08)",
+                            border: "1px solid rgba(239, 68, 68, 0.2)",
+                            color: "var(--accent-red)",
+                            fontSize: "0.875rem",
+                            marginBottom: "1rem",
                           }}
-                        />
-                        <span style={{ fontSize: "0.8125rem", color: "var(--neutral-400)", lineHeight: 1.5 }}>
-                          I agree to receive communications from Avyuct AI Labs
-                        </span>
-                      </div>
+                        >
+                          {error}
+                        </div>
+                      )}
 
                       <button
                         type="submit"
+                        disabled={loading}
                         className="cf-field btn-primary"
                         style={{
                           width: "100%",
@@ -345,12 +351,25 @@ export default function ContactForm() {
                           padding: "1rem 2.25rem",
                           fontSize: "0.9375rem",
                           borderRadius: "0.75rem",
+                          opacity: loading ? 0.7 : 1,
+                          cursor: loading ? "not-allowed" : "pointer",
                         }}
                       >
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: "0.375rem" }}>
-                          <path d="M22 2L11 13" /><path d="M22 2L15 22L11 13L2 9L22 2Z" />
-                        </svg>
-                        Send Message
+                        {loading ? (
+                          <>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: "0.375rem", animation: "spin 1s linear infinite" }}>
+                              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+                            </svg>
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: "0.375rem" }}>
+                              <path d="M22 2L11 13" /><path d="M22 2L15 22L11 13L2 9L22 2Z" />
+                            </svg>
+                            Send Message
+                          </>
+                        )}
                       </button>
                     </form>
                   )}
@@ -360,7 +379,7 @@ export default function ContactForm() {
                 <div
                   className="cf-info-card cf-info-col"
                   style={{
-                    background: "linear-gradient(135deg, rgba(0, 102, 255, 0.04) 0%, rgba(30, 58, 138, 0.02) 100%)",
+                    background: "linear-gradient(135deg, rgba(0, 102, 255, 0.04) 0%, rgba(33, 105, 53, 0.02) 100%)",
                     borderTop: "1px solid var(--glass-border)",
                     padding: "3rem 2.5rem",
                     display: "flex",
@@ -407,7 +426,7 @@ export default function ContactForm() {
                           <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" />
                         </svg>
                       </div>
-                      <span style={{ fontWeight: 600, fontSize: "0.875rem", color: "var(--neutral-100)" }}>Headquarters</span>
+                      <span style={{ fontWeight: 600, fontSize: "0.875rem", color: "var(--neutral-100)" }}>Address</span>
                     </div>
                     <p style={{ fontSize: "0.8125rem", color: "var(--neutral-400)", lineHeight: 1.6, marginBottom: "0.5rem" }}>
                       {CONTACT.headquarters.address}
@@ -423,51 +442,6 @@ export default function ContactForm() {
                       }}
                     >
                       {CONTACT.email}
-                    </a>
-                  </div>
-
-                  {/* Dubai Card */}
-                  <div
-                    style={{
-                      padding: "1.5rem",
-                      borderRadius: "1rem",
-                      background: "rgba(0, 0, 0, 0.02)",
-                      border: "1px solid var(--glass-border)",
-                    }}
-                  >
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.75rem" }}>
-                      <div
-                        style={{
-                          width: "36px",
-                          height: "36px",
-                          borderRadius: "0.625rem",
-                          background: "rgba(0, 102, 255, 0.1)",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          flexShrink: 0,
-                        }}
-                      >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <circle cx="12" cy="12" r="10" /><path d="M2 12h20" /><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
-                        </svg>
-                      </div>
-                      <span style={{ fontWeight: 600, fontSize: "0.875rem", color: "var(--neutral-100)" }}>Dubai Innovation Hub</span>
-                    </div>
-                    <p style={{ fontSize: "0.8125rem", color: "var(--neutral-400)", lineHeight: 1.6, marginBottom: "0.5rem" }}>
-                      {CONTACT.dubai.address}
-                    </p>
-                    <a
-                      href={`mailto:${CONTACT.dubaiEmail}`}
-                      style={{
-                        fontFamily: "var(--font-mono)",
-                        fontSize: "0.75rem",
-                        color: "var(--primary-blue)",
-                        textDecoration: "none",
-                        transition: "opacity 0.2s",
-                      }}
-                    >
-                      {CONTACT.dubaiEmail}
                     </a>
                   </div>
 
@@ -491,8 +465,6 @@ export default function ContactForm() {
                     <div style={{ display: "flex", gap: "0.75rem" }}>
                       {[
                         { href: SOCIAL_LINKS.linkedin, label: "LinkedIn", icon: <path d="M4 6a2 2 0 114 0 2 2 0 01-4 0zM4 10h4v12H4V10zM10 10h3.8l.2 1.7A5.8 5.8 0 0118 9.5c3.5 0 5 2.3 5 5.5v7h-4v-6.5c0-1.6-.8-2.5-2.2-2.5-1.5 0-2.8 1-2.8 2.5V22h-4V10z" /> },
-                        { href: SOCIAL_LINKS.twitter, label: "X", icon: <path d="M4 4l7.2 9.6L4 22h2l6-7 5 7h5l-7.5-10L21 4h-2l-5.5 6.4L9 4H4z" /> },
-                        { href: SOCIAL_LINKS.youtube, label: "YouTube", icon: <path d="M22 8s-.3-2-1.2-2.8C19.8 4.3 18.5 4 13 4s-6.8.3-7.8 1.2C4.3 6 4 8 4 8s-.3 2 0 4 .3 4 .3 4 .3 2 1.2 2.8C6.2 19.7 7.5 20 13 20s6.8-.3 7.8-1.2c.9-.8 1.2-2.8 1.2-2.8s.3-2 0-4zM11 16V9l5 3.5-5 3.5z" /> },
                       ].map((s) => (
                         <a
                           key={s.label}

@@ -2,6 +2,7 @@
 
 import { useRef, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -11,50 +12,6 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP);
 }
 
-/* ── Inline SVG: Neural vessel / brain icon ─────────────────────── */
-function BrainIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 28 28"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-      aria-hidden="true"
-    >
-      {/* Central node */}
-      <circle cx="14" cy="14" r="3" fill="var(--primary-blue)" opacity="0.9" />
-      {/* Outer ring */}
-      <circle
-        cx="14"
-        cy="14"
-        r="10"
-        stroke="var(--primary-blue)"
-        strokeWidth="1.2"
-        opacity="0.3"
-      />
-      {/* Neural connection paths */}
-      <path
-        d="M14 4v7M14 17v7M4 14h7M17 14h7"
-        stroke="var(--primary-blue)"
-        strokeWidth="1.2"
-        strokeLinecap="round"
-        opacity="0.5"
-      />
-      <path
-        d="M7.1 7.1l4.9 4.9M16 16l4.9 4.9M20.9 7.1l-4.9 4.9M12 16l-4.9 4.9"
-        stroke="var(--secondary-blue)"
-        strokeWidth="1"
-        strokeLinecap="round"
-        opacity="0.4"
-      />
-      {/* Small connection nodes */}
-      <circle cx="14" cy="4" r="1.5" fill="var(--secondary-blue)" opacity="0.6" />
-      <circle cx="14" cy="24" r="1.5" fill="var(--secondary-blue)" opacity="0.6" />
-      <circle cx="4" cy="14" r="1.5" fill="var(--secondary-blue)" opacity="0.6" />
-      <circle cx="24" cy="14" r="1.5" fill="var(--secondary-blue)" opacity="0.6" />
-    </svg>
-  );
-}
 
 /* ── Hamburger / X icon ─────────────────────────────────────────── */
 function HamburgerIcon({ isOpen }: { isOpen: boolean }) {
@@ -90,50 +47,6 @@ export default function Navbar({ isMenuOpen, onMenuToggle }: NavbarProps) {
   const headerRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
 
-  /* Scroll direction: show/hide header with GSAP */
-  const lastScrollY = useRef(0);
-  const ticking = useRef(false);
-
-  const handleScroll = useCallback(() => {
-    if (ticking.current) return;
-    ticking.current = true;
-
-    requestAnimationFrame(() => {
-      const currentScrollY = window.scrollY;
-
-      if (!headerRef.current) {
-        ticking.current = false;
-        return;
-      }
-
-      if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
-        /* Scrolling down — hide */
-        gsap.to(headerRef.current, {
-          y: "-100%",
-          duration: 0.4,
-          ease: "power4.out",
-        });
-      } else {
-        /* Scrolling up — show */
-        gsap.to(headerRef.current, {
-          y: "0%",
-          duration: 0.4,
-          ease: "power4.out",
-        });
-      }
-
-      lastScrollY.current = currentScrollY;
-      ticking.current = false;
-    });
-  }, []);
-
-  useGSAP(
-    () => {
-      window.addEventListener("scroll", handleScroll, { passive: true });
-      return () => window.removeEventListener("scroll", handleScroll);
-    },
-    { scope: headerRef }
-  );
 
   return (
     <header
@@ -143,11 +56,14 @@ export default function Navbar({ isMenuOpen, onMenuToggle }: NavbarProps) {
       <nav className="container-narrow flex items-center justify-between h-16 md:h-[72px]">
         {/* ── Logo ─────────────────────────────────────────── */}
         <Link href="/" className="flex items-center gap-2 group shrink-0">
-          <BrainIcon className="w-7 h-7 transition-transform duration-300 group-hover:scale-110" />
-          <span className="text-lg font-bold tracking-tight text-neutral-50">
-            Avyuct{" "}
-            <span className="text-[var(--primary-blue)]">AI Labs</span>
-          </span>
+          <Image
+            src="/avyuct-logo-v2.png"
+            alt="Avyuct AI Labs Logo"
+            width={160}
+            height={48}
+            className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            priority
+          />
         </Link>
 
         {/* Desktop Nav */}
@@ -165,7 +81,7 @@ export default function Navbar({ isMenuOpen, onMenuToggle }: NavbarProps) {
                   }`}
                 >
                   {link.label}
-                  {/* Underline animation — slides in from left on hover */}
+                  {/* Underline animation - slides in from left on hover */}
                   <span
                     className={`absolute bottom-0 left-4 right-4 h-[2px] bg-[var(--primary-blue)] rounded-full transition-transform duration-300 origin-left ${
                       isActive
@@ -183,7 +99,7 @@ export default function Navbar({ isMenuOpen, onMenuToggle }: NavbarProps) {
         <div className="flex items-center gap-3">
           <Link
             href="/contact"
-            className="btn-primary hidden md:inline-flex !py-2.5 !px-5 !text-sm"
+            className="hidden md:inline-flex items-center justify-center bg-[var(--avyuct-green)] hover:bg-[var(--avyuct-dark-green)] !text-white font-medium rounded-xl transition-all duration-300 shadow-[0_4px_14px_0_rgba(50,167,88,0.39)] hover:shadow-[0_6px_20px_rgba(50,167,88,0.23)] hover:-translate-y-0.5 !px-6 !py-2.5 !text-base tracking-wide"
           >
             Request Demo
           </Link>

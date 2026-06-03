@@ -13,6 +13,14 @@
   --secondary-blue: #4D9FFF;
   --neural-blue: #1E3A8A;
   --deep-navy: #F3F4F6;
+  
+  /* Avyuct Logo Colors */
+  --avyuct-slate: #2b3f4c;
+  --avyuct-green: #32a758;
+  --avyuct-light-green: #83ce40;
+  --avyuct-dark-green: #216935;
+  --avyuct-mint: #f0f9f3;
+  --avyuct-slate-light: #7a8489;
 
   /* Glassmorphism */
   --glass-white: rgba(0, 0, 0, 0.03);
@@ -39,10 +47,10 @@
   --neutral-950: #F9FAFB;
 
   /* Gradients */
-  --neural-gradient: linear-gradient(135deg, #0066FF 0%, #1E3A8A 100%);
-  --hero-gradient: linear-gradient(180deg, #F9FAFB 0%, #F3F4F6 50%, #F9FAFB 100%);
-  --cta-gradient: linear-gradient(135deg, #F3F4F6 0%, #E5E7EB 50%, #F3F4F6 100%);
-  --card-gradient: linear-gradient(135deg, rgba(0, 102, 255, 0.1) 0%, rgba(30, 58, 138, 0.05) 100%);
+  --neural-gradient: linear-gradient(135deg, var(--avyuct-dark-green) 0%, var(--avyuct-light-green) 100%);
+  --hero-gradient: linear-gradient(180deg, #F9FAFB 0%, var(--avyuct-mint) 50%, #F9FAFB 100%);
+  --cta-gradient: linear-gradient(135deg, #F3F4F6 0%, var(--avyuct-mint) 50%, #F3F4F6 100%);
+  --card-gradient: linear-gradient(135deg, rgba(43, 63, 76, 0.1) 0%, rgba(33, 105, 53, 0.1) 100%);
 
   /* Shadows */
   --shadow-blue-sm: 0 4px 20px rgba(0, 102, 255, 0.15);
@@ -66,6 +74,11 @@
   --color-secondary: var(--secondary-blue);
   --color-neural: var(--neural-blue);
   --color-deep-navy: var(--deep-navy);
+  --color-avyuct-slate: var(--avyuct-slate);
+  --color-avyuct-green: var(--avyuct-green);
+  --color-avyuct-light-green: var(--avyuct-light-green);
+  --color-avyuct-dark-green: var(--avyuct-dark-green);
+  --color-avyuct-mint: var(--avyuct-mint);
   --color-accent-green: var(--accent-green);
   --color-accent-amber: var(--accent-amber);
   --color-accent-red: var(--accent-red);
@@ -98,6 +111,7 @@ html {
   scroll-behavior: auto; /* Lenis handles smooth scroll */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-padding-top: 100px; /* Accounts for the sticky navbar height */
 }
 
 body {
@@ -152,7 +166,7 @@ body {
 }
 
 .glass-nav {
-  background: rgba(249, 250, 251, 0.85);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--glass-border);
@@ -238,9 +252,10 @@ body {
   align-items: center;
   gap: 0.625rem;
   padding: 1rem 2.25rem;
-  background: var(--primary-blue);
+  background: linear-gradient(135deg, var(--avyuct-slate) 0%, var(--avyuct-dark-green) 100%);
   color: white;
-  font-weight: 600;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   font-size: 0.9375rem;
   border-radius: 0.75rem;
   border: none;
@@ -250,8 +265,8 @@ body {
 }
 
 .btn-primary:hover {
-  background: #0055DD;
-  box-shadow: var(--shadow-blue-md);
+  background: linear-gradient(135deg, var(--avyuct-dark-green) 0%, var(--avyuct-slate) 100%);
+  box-shadow: 0 8px 40px rgba(50, 167, 88, 0.3);
   transform: translateY(-2px);
 }
 
@@ -261,20 +276,41 @@ body {
   gap: 0.625rem;
   padding: 1rem 2.25rem;
   background: transparent;
-  color: var(--neutral-200);
-  font-weight: 600;
-  font-size: 0.9375rem;
+  color: var(--avyuct-slate);
+  font-weight: 500;
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
   border-radius: 0.75rem;
-  border: 1px solid var(--glass-border);
+  border: 2px solid var(--avyuct-slate);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-secondary::before {
+  content: '';
+  position: absolute;
+  top: 0; 
+  left: -100%;
+  width: 50%; 
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
 }
 
 .btn-secondary:hover {
-  background: var(--glass-white);
-  border-color: rgba(0, 102, 255, 0.3);
+  background: var(--avyuct-slate);
+  border-color: var(--avyuct-slate);
   color: white;
+  box-shadow: 0 10px 30px rgba(43, 63, 76, 0.2);
+  transform: translateY(-2px);
+}
+
+.btn-secondary:hover::before {
+  left: 150%;
 }
 
 /* --- Section Layout --- */
@@ -367,7 +403,14 @@ body {
 }
 
 .text-gradient {
-  background: var(--neural-gradient);
+  background: linear-gradient(135deg, var(--avyuct-dark-green) 0%, var(--avyuct-light-green) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.uae-gradient-text {
+  background: linear-gradient(135deg, #CE1126 0%, #00732F 50%, #111111 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -398,6 +441,11 @@ body {
   to {
     stroke-dashoffset: 0;
   }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .vessel-draw-delayed {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useMemo } from "react";
+import React, { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
@@ -146,20 +146,25 @@ function BrainParticles() {
     }
   }, [positions, colors]);
 
+  // Pre-allocate reusable objects outside the render loop to avoid GC pressure
+  const dummy = useMemo(() => new THREE.Object3D(), []);
+  const tempVec = useMemo(() => new THREE.Vector3(), []);
+  const tempDir = useMemo(() => new THREE.Vector3(), []);
+
   // Track mouse coordinates in 3D space
-  useFrame(({ pointer, camera, clock }) => {
+  useFrame(({ pointer, camera, clock, invalidate }) => {
     if (!meshRef.current) return;
+    invalidate(); // request next frame (on-demand rendering)
 
     // Convert normalized device coordinates (pointer) to 3D world position
-    const vector = new THREE.Vector3(pointer.x, pointer.y, 0.5);
-    vector.unproject(camera);
-    const dir = vector.sub(camera.position).normalize();
-    const distance = -camera.position.z / dir.z; // Depth plane to interact on
-    const pos = camera.position.clone().add(dir.multiplyScalar(distance));
+    tempVec.set(pointer.x, pointer.y, 0.5);
+    tempVec.unproject(camera);
+    tempDir.copy(tempVec).sub(camera.position).normalize();
+    const distance = -camera.position.z / tempDir.z;
+    tempVec.copy(camera.position).addScaledVector(tempDir, distance);
     
-    mouse.current.lerp(pos, 0.1); // Smooth mouse tracking
+    mouse.current.lerp(tempVec, 0.1); // Smooth mouse tracking
 
-    const dummy = new THREE.Object3D();
     const count = positions.length / 3;
     const time = clock.getElapsedTime();
     
@@ -251,11 +256,27 @@ function BrainParticles() {
 }
 
 export default function InteractiveBrain() {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Pause the entire Canvas when it scrolls out of view
+  useEffect(() => {
+    const el = wrapperRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { rootMargin: "200px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="w-full relative cursor-pointer group" style={{ height: "600px" }}>
+    <div ref={wrapperRef} className="w-full relative cursor-pointer group" style={{ height: "600px" }}>
       <Canvas
         camera={{ position: [0, 0, 350], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
+        frameloop={isVisible ? "demand" : "never"}
       >
         <ambientLight intensity={1.5} />
         <pointLight position={[100, 100, 100]} intensity={2} color="#ffffff" />

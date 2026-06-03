@@ -3,7 +3,7 @@ import ProblemSection from "@/components/home/ProblemSection";
 import SolutionSection from "@/components/home/SolutionSection";
 import ClinicalValidation from "@/components/home/ClinicalValidation";
 import Testimonials from "@/components/home/Testimonials";
-import CTABlock from "@/components/home/CTABlock";
+import SolutionsCTA from "@/components/solutions/SolutionsCTA";
 
 export default function Home() {
   return (
@@ -11,9 +11,9 @@ export default function Home() {
       <HeroSection />
       <div id="problem-section"><ProblemSection /></div>
       <div id="solution-section"><SolutionSection /></div>
-      <div id="clinical-validation"><ClinicalValidation /></div>
-      <div id="testimonials"><Testimonials /></div>
-      <div id="cta-block"><CTABlock /></div>
+      {/* <div id="clinical-validation"><ClinicalValidation /></div> */}
+      {/* <div id="testimonials"><Testimonials /></div> */}
+      <div id="cta-block"><SolutionsCTA /></div>
     </main>
   );
 }

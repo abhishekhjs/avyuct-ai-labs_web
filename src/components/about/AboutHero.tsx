@@ -13,35 +13,37 @@ export default function AboutHero() {
     gsap.from(".about-stat", { scale: 0.9, opacity: 0, stagger: 0.1, duration: 0.8, delay: 0.4, ease: "power3.out" });
   }, { scope: container });
 
-  const stats = [
-    { value: "2023", label: "Founded" },
-    { value: "5", label: "US Patents" },
-    { value: "2", label: "Global Hubs" },
-    { value: "⏳", label: "FDA Status" },
-  ];
-
   return (
     <section ref={container} className="min-h-[80vh] relative overflow-hidden flex items-center" style={{ background: "var(--hero-gradient)", paddingBottom: "4rem", paddingTop: "8rem" }}>
       <ParticleField className="absolute inset-0 z-0" particleCount={25} />
-      <div className="container-narrow relative z-10 grid grid-cols-1 lg:grid-cols-2" style={{ gap: "5rem", alignItems: "center", minHeight: "70vh" }}>
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+      <div className="container-narrow relative z-10 flex flex-col items-center justify-center" style={{ minHeight: "70vh", paddingTop: "2rem" }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", maxWidth: "800px" }}>
           <p className="about-anim label-text" style={{ marginBottom: "1rem" }}>ABOUT US</p>
           <h1 className="about-anim heading-xl">Autonomous Medical <span className="text-gradient">Intelligence</span></h1>
-          <div className="about-anim flex flex-wrap" style={{ gap: "1rem", marginTop: "1.5rem" }}>
-            <span className="glass-card rounded-full text-sm" style={{ padding: "0.5rem 1.25rem", border: "1px solid rgba(255, 255, 255, 0.1)" }}>🇺🇸 Herndon, VA</span>
+          <div className="about-anim flex flex-wrap justify-center" style={{ gap: "1rem", marginTop: "1.5rem" }}>
             <span className="glass-card rounded-full text-sm" style={{ padding: "0.5rem 1.25rem", border: "1px solid rgba(0, 102, 255, 0.3)" }}>🇦🇪 Dubai, UAE</span>
           </div>
-          <p className="about-anim body-lg" style={{ marginTop: "2rem", maxWidth: "40rem" }}>
-            Avyuct AI Labs builds precision AI for vascular health. We detect the strokes no one sees coming, saving lives through autonomous medical intelligence that surpasses human capability.
-          </p>
-        </div>
-        <div className="grid grid-cols-2" style={{ gap: "1.5rem" }}>
-          {stats.map((s) => (
-            <div key={s.label} className="about-stat glass-card text-center flex flex-col justify-center items-center" style={{ padding: "2rem 1.5rem", borderRadius: "1.5rem" }}>
-              <p className="text-3xl font-black text-gradient" style={{ marginBottom: "0.5rem" }}>{s.value}</p>
-              <p className="body-md text-sm">{s.label}</p>
-            </div>
-          ))}
+          <div className="about-anim flex flex-col items-center" style={{ marginTop: "3rem", gap: "1.5rem" }}>
+            <blockquote 
+              className="body-lg italic relative" 
+              style={{ 
+                fontWeight: 600, 
+                color: "var(--primary-blue)",
+                padding: "1.25rem 2rem",
+                background: "linear-gradient(90deg, transparent 0%, rgba(0, 102, 255, 0.08) 50%, transparent 100%)",
+                borderRadius: "0.75rem",
+                width: "100%"
+              }}
+            >
+              "Because a stroke that goes unseen is a life that goes unsaved."
+            </blockquote>
+            <p className="body-lg">
+              We are Avyuct AI Labs, a vascular AI company based in Dubai. We have built an AI-Native DMVO solution to detect and localize these distal clots, enabling clinicians to identify challenging stroke cases faster and with greater confidence. Our product is validated by 10+ expert neuroradiologists and backed by 5 US patents.
+            </p>
+            <p className="body-lg">
+              We are now initiating hospital pilots in the UAE, and in October we release our Neurovascular World Model - the first predictive vascular AI built natively in the UAE.
+            </p>
+          </div>
         </div>
       </div>
     </section>

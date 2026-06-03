@@ -100,7 +100,7 @@ export default function WorldModel() {
           </h2>
           <p className="body-lg premium-mt" style={{ textAlign: "center", width: "100%", maxWidth: "42rem" }}>
             A foundation AI model trained to map biological normalcy across
-            cerebral vasculature — detecting life-threatening anomalies at
+            cerebral vasculature - detecting and localizing life-threatening anomalies at
             the speed and accuracy no human can consistently match.
           </p>
         </div>

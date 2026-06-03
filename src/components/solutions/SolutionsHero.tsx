@@ -53,7 +53,7 @@ export default function SolutionsHero() {
             <span className="text-gradient">Vascular Spectrum</span>
           </h1>
           <p className="sol-hero-anim body-lg premium-mt max-w-xl">
-            From emergency stroke triage to predictive vascular intelligence —
+            From emergency stroke triage to predictive vascular intelligence -
             our autonomous AI sees what matters most.
           </p>
           <div className="sol-hero-anim flex flex-wrap premium-mt-lg" style={{ gap: "1rem" }}>

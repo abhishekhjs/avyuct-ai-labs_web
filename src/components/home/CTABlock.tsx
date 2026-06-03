@@ -24,15 +24,18 @@ export default function CTABlock() {
         scrollTrigger: { trigger: container.current, start: "top 80%" },
       });
 
-      gsap.from(".cta-btn", {
-        y: 30,
-        opacity: 0,
-        stagger: 0.15,
-        duration: 0.8,
-        delay: 0.3,
-        ease: "power4.out",
-        scrollTrigger: { trigger: container.current, start: "top 80%" },
-      });
+      gsap.fromTo(".cta-btn",
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.15,
+          duration: 0.8,
+          delay: 0.3,
+          ease: "power4.out",
+          scrollTrigger: { trigger: container.current, start: "top 95%" },
+        }
+      );
     },
     { scope: container }
   );
@@ -51,13 +54,13 @@ export default function CTABlock() {
             Join the Vascular Health Revolution using{" "}
             <span className="text-gradient">AI</span>
           </h2>
-          <p className="body-lg mt-6 max-w-xl">
+          <p className="body-lg max-w-xl" style={{ marginTop: "2.5rem" }}>
             Partner with us to redefine the standard of care for distal stroke
             detection.
           </p>
         </div>
 
-        <div className="mt-12 flex gap-4 flex-wrap justify-center">
+        <div className="flex flex-wrap justify-center" style={{ marginTop: "4.5rem", gap: "2rem" }}>
           <Link href="/contact" className="cta-btn btn-primary">
             Request Demo
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="ml-1">

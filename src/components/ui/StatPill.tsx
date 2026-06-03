@@ -13,10 +13,25 @@ interface StatPillProps {
   value: string;
   label: string;
   className?: string;
+  colorClass?: string;
 }
 
-export default function StatPill({ value, label, className = "" }: StatPillProps) {
+export default function StatPill({ value, label, className = "", colorClass = "" }: StatPillProps) {
   const container = useRef<HTMLDivElement>(null);
+  
+  let bgStr = "var(--glass-white)";
+  let borderStr = "var(--glass-border)";
+  let textStr = "inherit";
+
+  if (colorClass === "green") {
+    bgStr = "rgba(16, 185, 129, 0.1)"; // emerald-500
+    borderStr = "rgba(16, 185, 129, 0.3)";
+    textStr = "rgb(16, 185, 129)";
+  } else if (colorClass === "yellow") {
+    bgStr = "rgba(234, 179, 8, 0.1)"; // yellow-500
+    borderStr = "rgba(234, 179, 8, 0.3)";
+    textStr = "rgb(234, 179, 8)";
+  }
 
   useGSAP(
     () => {
@@ -38,10 +53,17 @@ export default function StatPill({ value, label, className = "" }: StatPillProps
   return (
     <div
       ref={container}
-      className={`glass-card inline-flex items-center rounded-full ${className}`}
-      style={{ padding: '0.875rem 1.75rem', gap: '1.25rem' }}
+      className={`inline-flex items-center rounded-full ${className}`}
+      style={{ 
+        padding: '0.875rem 1.75rem', 
+        gap: '1.25rem',
+        background: bgStr,
+        border: `1px solid ${borderStr}`,
+        backdropFilter: 'blur(24px)',
+        WebkitBackdropFilter: 'blur(24px)'
+      }}
     >
-      <span className="mono-text font-bold text-lg">{value}</span>
+      <span className="mono-text font-bold text-lg" style={{ color: textStr }}>{value}</span>
       <span className="text-base text-neutral-400">{label}</span>
     </div>
   );

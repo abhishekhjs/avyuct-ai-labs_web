@@ -67,28 +67,26 @@ export default function ClinicalValidation() {
 
   return (
     <section ref={container} className="section-padding relative overflow-hidden min-h-screen flex items-center">
-      <NeuralNetwork className="absolute inset-0 z-0 pointer-events-none opacity-30" />
-
-      <div className="container-narrow relative z-10 flex flex-col w-full items-center">
+      <div className="container-wide relative z-10 flex flex-col w-full items-center">
         <div className="w-full flex flex-col items-center py-24">
-          <div className="pillar-header max-w-3xl shrink-0 mb-16 text-center">
+          <div className="pillar-header max-w-3xl shrink-0 text-center" style={{ marginBottom: "6rem" }}>
             <p className="label-text mb-4 tracking-widest">CLINICAL MOAT</p>
             <h2 className="heading-lg leading-tight">Our Clinical Moat</h2>
-            <p className="body-lg mt-6 text-neutral-300 leading-relaxed mx-auto max-w-xl">
+            <p className="body-lg text-neutral-300 leading-relaxed mx-auto max-w-xl" style={{ marginTop: "2.5rem" }}>
               Three foundational advantages that define our competitive edge in
               distal stroke detection.
             </p>
           </div>
 
-          <div ref={trackRef} className="w-full grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div ref={trackRef} className="w-full grid grid-cols-1 md:grid-cols-3" style={{ gap: "3rem" }}>
             {CLINICAL_PILLARS.map((pillar) => (
               <div key={pillar.title} className="pillar-card w-full">
                 <GlassCard hover className="h-full flex flex-col premium-card-padding">
-                  <div className="mb-6 flex">
+                  <div className="flex" style={{ marginBottom: "2.5rem" }}>
                     {PILLAR_ICONS[pillar.icon]}
                   </div>
                   <h3 className="heading-sm">{pillar.title}</h3>
-                  <p className="body-lg mt-4 text-neutral-300 flex-1">{pillar.description}</p>
+                  <p className="body-lg text-neutral-300 flex-1" style={{ marginTop: "1.5rem" }}>{pillar.description}</p>
                 </GlassCard>
               </div>
             ))}

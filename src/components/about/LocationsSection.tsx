@@ -18,8 +18,7 @@ export default function LocationsSection() {
   }, { scope: container });
 
   const locations = [
-    { ...CONTACT.headquarters, flag: "🇺🇸", capabilities: ["Core detection algorithms", "FDA regulatory pathway", "NIH StrokeNet collaboration", "US patent portfolio development"] },
-    { ...CONTACT.dubai, flag: "🇦🇪", capabilities: ["Sovereign AI development (UAE IP)", "Multimodal imaging research", "Regional clinical partnerships (MENA)", "JEPA-based predictive intelligence"] },
+    { ...CONTACT.headquarters, flag: "🇦🇪", capabilities: ["Sovereign AI development (UAE IP)", "Multimodal imaging research", "Regional clinical partnerships (MENA)", "JEPA-based predictive intelligence", "Core detection algorithms", "Regulatory pathway"] },
   ];
 
   return (
@@ -32,7 +31,7 @@ export default function LocationsSection() {
         <div className="loc-map mx-auto" style={{ marginTop: "3rem", marginBottom: "6rem", maxWidth: "1000px" }}>
           <WorldMap />
         </div>
-        <div className="loc-cards grid grid-cols-1 lg:grid-cols-2" style={{ gap: "4rem" }}>
+        <div className="loc-cards flex justify-center" style={{ gap: "4rem" }}>
           {locations.map((loc) => (
             <div key={loc.city} className="loc-card glass-card" style={{ padding: "4rem 3rem", borderRadius: "1.5rem" }}>
               <p className="text-3xl" style={{ marginBottom: "1.5rem" }}>{loc.flag}</p>

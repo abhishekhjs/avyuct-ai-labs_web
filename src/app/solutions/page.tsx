@@ -4,8 +4,9 @@ import WorkflowSection from "@/components/home/WorkflowSection";
 import StrokeDetection from "@/components/solutions/StrokeDetection";
 import WorldModel from "@/components/solutions/WorldModel";
 import DeploymentArch from "@/components/solutions/DeploymentArch";
-import ResearchPartners from "@/components/solutions/ResearchPartners";
-import SolutionsCTA from "@/components/solutions/SolutionsCTA";
+import CTABlock from "@/components/home/CTABlock";
+
+import RegulatorySection from "@/components/solutions/RegulatorySection";
 
 export const metadata: Metadata = {
   title: "Solutions",
@@ -20,9 +21,9 @@ export default function SolutionsPage() {
       <WorkflowSection />
       <StrokeDetection />
       <WorldModel />
-      <DeploymentArch />
-      <ResearchPartners />
-      <SolutionsCTA />
+      {/* <DeploymentArch />
+      <RegulatorySection /> */}
+      <CTABlock />
     </>
   );
 }

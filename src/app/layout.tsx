@@ -20,11 +20,11 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Avyuct AI Labs — AI-Powered Vascular Health",
+    default: "Avyuct AI Labs - AI-Powered Vascular Health",
     template: "%s | Avyuct AI Labs",
   },
   description:
-    "Avyuct AI Labs detects the strokes no one sees coming. Our autonomous medical intelligence identifies distal vessel occlusions that standard imaging misses — saving lives through AI precision.",
+    "Avyuct AI Labs detects the strokes no one sees coming. Our autonomous medical intelligence identifies distal vessel occlusions that standard imaging misses - saving lives through AI precision.",
   keywords: [
     "AI stroke detection",
     "distal vessel occlusion",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Avyuct AI Labs" }],
   openGraph: {
-    title: "Avyuct AI Labs — AI-Powered Vascular Health",
+    title: "Avyuct AI Labs - AI-Powered Vascular Health",
     description:
       "Autonomous medical intelligence that detects distal vessel occlusions standard imaging misses.",
     type: "website",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Avyuct AI Labs — AI-Powered Vascular Health",
+    title: "Avyuct AI Labs - AI-Powered Vascular Health",
     description:
       "Autonomous medical intelligence that detects distal vessel occlusions standard imaging misses.",
   },

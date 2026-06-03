@@ -10,6 +10,7 @@ interface GlassCardProps {
   hover?: boolean;
   glowColor?: string;
   padding?: string;
+  style?: React.CSSProperties;
 }
 
 export default function GlassCard({
@@ -18,6 +19,7 @@ export default function GlassCard({
   hover = true,
   glowColor = "rgba(0, 102, 255, 0.4)",
   padding = "premium-card-padding",
+  style,
 }: GlassCardProps) {
   const container = useRef<HTMLDivElement>(null);
 
@@ -60,6 +62,7 @@ export default function GlassCard({
     <div
       ref={container}
       className={`glass-card ${hover ? "glass-card-hover" : ""} ${padding} ${className}`}
+      style={style}
     >
       {children}
     </div>

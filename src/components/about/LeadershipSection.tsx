@@ -45,7 +45,7 @@ export default function LeadershipSection() {
                 )}
               </div>
               <h3 className="heading-sm" style={{ marginBottom: "0.25rem" }}>{member.name}</h3>
-              <p className="mono-text" style={{ color: "var(--primary-blue)", marginBottom: "1rem" }}>{member.role}</p>
+              <p className="mono-text" style={{ fontSize: "0.875rem", color: "var(--primary-blue)", marginBottom: "0.5rem", fontWeight: "bold" }}>{member.role}</p>
               
               {member.linkedin && (
                 <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-[var(--primary-blue)] transition-colors" style={{ marginBottom: "1.5rem" }} aria-label={`${member.name}'s LinkedIn`}>
@@ -55,7 +55,7 @@ export default function LeadershipSection() {
                 </a>
               )}
 
-              <p className="body-md text-sm" style={{ lineHeight: "1.6", color: "var(--neutral-300)" }}>{member.bio}</p>
+              <p className="body-md text-sm" style={{ lineHeight: "1.6", color: "var(--neutral-300)" }} dangerouslySetInnerHTML={{ __html: member.bio }} />
             </div>
           ))}
         </div>

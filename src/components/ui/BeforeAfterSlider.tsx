@@ -89,7 +89,7 @@ export default function BeforeAfterSlider({
         }
       }}
     >
-      {/* Before Layer — Raw CTA Scan */}
+      {/* Before Layer - Raw CTA Scan */}
       <div className="absolute inset-0" aria-hidden="true">
         {beforeImage ? (
           <img src={beforeImage} alt={beforeLabel} className="absolute inset-0 w-full h-full object-cover" />
@@ -141,7 +141,7 @@ export default function BeforeAfterSlider({
         </div>
       </div>
 
-      {/* After Layer — AI Detection Overlay */}
+      {/* After Layer - AI Detection Overlay */}
       <div
         className="absolute inset-0"
         style={{
@@ -178,12 +178,12 @@ export default function BeforeAfterSlider({
                 `,
               }}
             />
-            {/* Blue-tinted overlay */}
+            {/* Green-tinted overlay */}
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(135deg, rgba(0, 102, 255, 0.08) 0%, rgba(30, 58, 138, 0.12) 100%)",
+                  "linear-gradient(135deg, rgba(50, 167, 88, 0.08) 0%, rgba(33, 105, 53, 0.12) 100%)",
               }}
             />
             {/* AI Detection Markers */}
@@ -208,13 +208,13 @@ export default function BeforeAfterSlider({
               }}
             />
             <div
-              className="absolute border-2 border-primary rounded-sm"
+              className="absolute border-2 border-[var(--avyuct-green)] rounded-sm"
               style={{
                 top: "28%",
                 left: "34%",
                 width: "80px",
                 height: "56px",
-                boxShadow: "0 0 14px rgba(0, 102, 255, 0.3)",
+                boxShadow: "0 0 14px rgba(50, 167, 88, 0.3)",
               }}
             />
             <div
@@ -266,30 +266,24 @@ export default function BeforeAfterSlider({
 
       {/* Divider Line */}
       <div
-        className="absolute top-0 bottom-0 z-10 w-0.5 bg-primary"
+        className="absolute top-0 bottom-0 z-10 w-1 bg-white"
         style={{
           left: `${sliderPosition}%`,
           transform: "translateX(-50%)",
-          boxShadow: "0 0 12px rgba(0, 102, 255, 0.5)",
+          boxShadow: "0 0 10px rgba(0,0,0,0.3)",
         }}
         aria-hidden="true"
       >
         {/* Glass Handle */}
-        <div className="glass-card absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-primary/40 shadow-lg">
+        <div className="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[3px] border-white bg-black/20 backdrop-blur-sm shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:scale-110 transition-transform duration-200">
           <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            className="text-white"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="white"
+            style={{ filter: "drop-shadow(0px 2px 4px rgba(0,0,0,0.5))" }}
           >
-            <path
-              d="M4 8H1M4 8L6 6M4 8L6 10M12 8H15M12 8L10 6M12 8L10 10"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+            <path d="M10 18L4 12L10 6V18ZM14 6L20 12L14 18V6Z" />
           </svg>
         </div>
       </div>
