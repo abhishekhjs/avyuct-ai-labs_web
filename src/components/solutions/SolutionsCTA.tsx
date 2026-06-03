@@ -12,8 +12,7 @@ if (typeof window !== "undefined") {
 
 const BENEFITS = [
   "86% sensitivity for hidden distal strokes",
-  "<30 second inference time",
-  "Zero-latency edge deployment",
+
   "HIPAA compliant, FDA clearance pending",
   "Seamless PACS/RIS integration",
 ];

@@ -190,12 +190,8 @@ export default function Footer() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
-              <span className="text-xs font-mono font-bold tracking-wider text-[var(--avyuct-slate)] bg-black/5 px-3 py-1 rounded-full border border-black/5">
-                {FOOTER_BADGES.join(" • ")}
-              </span>
-              <span className="hidden sm:inline text-[var(--avyuct-slate)]/30">|</span>
               <span className="text-xs font-bold tracking-wide text-[var(--avyuct-slate)] uppercase">
-                Herndon, VA <span className="text-[var(--avyuct-green)] mx-1">•</span> Dubai, UAE
+                Dubai, UAE
               </span>
             </div>
           </div>

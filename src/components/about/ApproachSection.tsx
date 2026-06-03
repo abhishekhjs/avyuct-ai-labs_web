@@ -28,19 +28,15 @@ export default function ApproachSection() {
             <p className="label-text" style={{ marginBottom: "1.5rem" }}>PHASE 01</p>
             <h3 className="heading-md" style={{ marginBottom: "1rem" }}>Emergency Stroke Detection</h3>
             <p className="body-md" style={{ lineHeight: "1.8" }}>Deep learning AI for LVO & DMVO detection with unmatched sensitivity at the point of care.</p>
-            <div style={{ marginTop: "2rem", marginBottom: "2rem" }}>
-              <p className="mono-text" style={{ fontSize: "0.875rem", color: "var(--neutral-400)" }}>86% sensitivity · &lt;30s inference</p>
-            </div>
-            <div><StatusBadge status="launched" /></div>
+
+            <div style={{ marginTop: "2rem" }}><StatusBadge status="launched" /></div>
           </div>
           <div className="phase-card glass-card" style={{ borderLeft: "4px solid var(--neural-blue)", padding: "4rem 3rem", display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <p className="label-text" style={{ marginBottom: "1.5rem" }}>PHASE 02</p>
             <h3 className="heading-md" style={{ marginBottom: "1rem" }}>Predictive Vascular Intelligence</h3>
             <p className="body-md" style={{ lineHeight: "1.8" }}>JEPA-based world model for pre-disease prediction - shifting from reactive diagnosis to proactive risk forecasting.</p>
-            <div style={{ marginTop: "2rem", marginBottom: "2rem" }}>
-              <p className="mono-text" style={{ fontSize: "0.875rem", color: "var(--neutral-400)" }}>Proactive forecasting · UAE sovereign IP</p>
-            </div>
-            <div><StatusBadge status="ongoing" /></div>
+
+            <div style={{ marginTop: "2rem" }}><StatusBadge status="ongoing" /></div>
           </div>
         </div>
         <div className="approach-quote max-w-3xl" style={{ marginTop: "8rem", textAlign: "center", margin: "8rem auto 0 auto", display: "flex", justifyContent: "center" }}>
