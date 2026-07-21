@@ -40,33 +40,15 @@ export default function SolutionsCTA() {
 
   return (
     <section ref={container} className="premium-footer-padding relative overflow-hidden" style={{ background: "#ffffff" }}>
-      {/* S-Shape Gradient Background - lightweight radial gradients */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* Top Right Glow */}
-        <div 
-          className="absolute top-[-20%] right-[-5%] w-[70vw] h-[70vw] max-w-[900px] max-h-[900px] rounded-full opacity-60"
-          style={{
-            background: "radial-gradient(circle at center, rgba(0, 191, 255, 0.35) 0%, rgba(0, 119, 255, 0.15) 40%, transparent 70%)",
-            transform: "translateZ(0)",
-          }}
-        />
-        {/* Bottom Left Glow */}
-        <div 
-          className="absolute bottom-[-20%] left-[-5%] w-[70vw] h-[70vw] max-w-[900px] max-h-[900px] rounded-full opacity-60"
-          style={{
-            background: "radial-gradient(circle at center, rgba(0, 255, 255, 0.3) 0%, rgba(0, 119, 255, 0.12) 40%, transparent 70%)",
-            transform: "translateZ(0)",
-          }}
-        />
-      </div>
+
 
       <div className="container-narrow relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 premium-gap-xl items-center">
           {/* Left - Benefits */}
           <div className="scta-left relative">
             
-            <h2 className="heading-lg" style={{ color: "#000000" }}>Ready to Deploy Avyuct?</h2>
-            <p className="body-lg premium-mt" style={{ color: "#111111", fontWeight: 500 }}>
+            <h2 className="heading-lg font-serif" style={{ color: "#000000" }}>Ready to Deploy Avyuct?</h2>
+            <p className="body-lg premium-mt font-sans" style={{ color: "#111111", fontWeight: 500 }}>
               Join leading medical institutions using AI for life-saving stroke detection.
             </p>
             <div className="benefits-list premium-mt-lg flex flex-col" style={{ gap: "1rem" }}>
@@ -76,7 +58,7 @@ export default function SolutionsCTA() {
                     <circle cx="10" cy="10" r="10" fill="#0077ff" opacity="0.2" />
                     <path d="M6 10l3 3 5-5" stroke="#0077ff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                  <span className="body-md font-bold" style={{ color: "#000000" }}>{b}</span>
+                  <span className="body-md font-bold font-sans" style={{ color: "#000000" }}>{b}</span>
                 </div>
               ))}
             </div>
@@ -84,7 +66,7 @@ export default function SolutionsCTA() {
 
           {/* Right - Form Mock */}
           <div className="scta-right glass-card premium-card-padding shadow-2xl" style={{ background: "rgba(10, 15, 30, 0.9)", borderColor: "rgba(255,255,255,0.1)" }}>
-            <h3 className="heading-md" style={{ marginBottom: "1.5rem", color: "#ffffff" }}>Request a Demo</h3>
+            <h3 className="heading-md font-sans font-bold" style={{ marginBottom: "1.5rem", color: "#ffffff" }}>Request a Demo</h3>
             <div className="flex flex-col" style={{ gap: "1rem" }}>
               <input type="text" placeholder="Institution Name" className="glass-input w-full rounded-lg p-3" readOnly />
               <input type="text" placeholder="Contact Name" className="glass-input w-full rounded-lg p-3" readOnly />

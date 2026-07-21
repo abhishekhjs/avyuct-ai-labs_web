@@ -53,10 +53,10 @@ export default function StatPill({ value, label, className = "", colorClass = ""
   return (
     <div
       ref={container}
-      className={`inline-flex items-center rounded-full ${className}`}
+      className={`inline-flex items-center rounded-full whitespace-nowrap ${className}`}
       style={{ 
-        padding: '0.875rem 1.75rem', 
-        gap: '1.25rem',
+        padding: '0.875rem 2rem', 
+        gap: '1.5rem',
         background: bgStr,
         border: `1px solid ${borderStr}`,
         backdropFilter: 'blur(24px)',

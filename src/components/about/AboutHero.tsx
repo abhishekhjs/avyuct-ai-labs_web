@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import ParticleField from "@/components/ui/ParticleField";
@@ -14,7 +15,20 @@ export default function AboutHero() {
   }, { scope: container });
 
   return (
-    <section ref={container} className="min-h-[80vh] relative overflow-hidden flex items-center" style={{ background: "var(--hero-gradient)", paddingBottom: "4rem", paddingTop: "8rem" }}>
+    <section ref={container} className="min-h-[80vh] relative overflow-hidden flex items-center" style={{ paddingBottom: "4rem", paddingTop: "8rem" }}>
+      {/* Background Image & Overlay */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/Dubai_Marina_Skyline.jpg"
+          alt="Dubai Marina Skyline"
+          fill
+          priority
+          className="object-cover opacity-40 mix-blend-luminosity"
+        />
+        {/* We keep the hero gradient as an overlay so text remains readable */}
+        <div className="absolute inset-0" style={{ background: "var(--hero-gradient)", opacity: 0.85 }} />
+      </div>
+
       <ParticleField className="absolute inset-0 z-0" particleCount={25} />
       <div className="container-narrow relative z-10 flex flex-col items-center justify-center" style={{ minHeight: "70vh", paddingTop: "2rem" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", maxWidth: "800px" }}>

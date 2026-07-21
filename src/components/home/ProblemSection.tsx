@@ -5,7 +5,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { PROBLEM_STATS } from "@/lib/constants";
-import AnimatedCounter from "@/components/ui/AnimatedCounter";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -13,115 +12,42 @@ if (typeof window !== "undefined") {
 
 export default function ProblemSection() {
   const container = useRef<HTMLElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      gsap.from(".problem-header", {
-        y: 60,
-        opacity: 0,
-        duration: 1,
-        ease: "power4.out",
+      // Fade-up the entire stats bar
+      gsap.from(".stats-bar", {
+        y: 30,
+        autoAlpha: 0,
+        duration: 0.8,
+        ease: "power3.out",
         scrollTrigger: {
-          trigger: ".problem-header",
+          trigger: container.current,
           start: "top 85%",
         },
       });
 
-      // MatchMedia for Desktop Stacked Sequence
-      let mm = gsap.matchMedia();
-      mm.add("(min-width: 1024px)", () => {
-        if (!trackRef.current || !container.current) return;
-        
-        const cards = gsap.utils.toArray<HTMLElement>(".problem-card", trackRef.current);
-        if (cards.length < 2) return;
+      // Counter animation for each stat number
+      const counters = gsap.utils.toArray<HTMLElement>(".stat-counter");
+      counters.forEach((counter) => {
+        const endVal = parseFloat(counter.getAttribute("data-value") || "0");
+        const decimals = parseInt(
+          counter.getAttribute("data-decimals") || "0",
+          10
+        );
+        const obj = { val: 0 };
 
-        // Set initial state: all cards except first are hidden and translated down
-        gsap.set(cards.slice(1), { opacity: 0, y: 60 });
-        
-        const tl = gsap.timeline({
+        gsap.to(obj, {
+          val: endVal,
+          duration: 2,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: container.current,
-            start: "top top",
-            end: () => `+=${cards.length * 150}vh`,
-            pin: true,
-            scrub: 1,
-            invalidateOnRefresh: true,
-          }
-        });
-
-        cards.forEach((card, i) => {
-          // Counter animation synced with timeline
-          const counterSpan = card.querySelector(".stat-counter");
-          if (counterSpan) {
-            const endVal = parseFloat(counterSpan.getAttribute("data-value") || "0");
-            const dec = parseInt(counterSpan.getAttribute("data-decimals") || "0", 10);
-            const obj = { val: 0 };
-            tl.to(obj, {
-              val: endVal,
-              duration: 1,
-              ease: "power2.out",
-              onUpdate: () => {
-                counterSpan.textContent = obj.val.toFixed(dec);
-              }
-            }, i * 2.5); // Starts exactly when the card's timeline slot begins
-          }
-
-          if (i === 0) return;
-          
-          // Animate previous card out (slide up, fade out)
-          tl.to(cards[i - 1], {
-            opacity: 0,
-            y: -60,
-            duration: 1,
-            ease: "power2.inOut"
-          }, i * 2.5);
-
-          // Animate current card in (slide up from bottom, fade in)
-          tl.to(card, {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power2.inOut"
-          }, i * 2.5);
-        });
-      });
-      
-      // Mobile-only animations for cards
-      mm.add("(max-width: 1023px)", () => {
-        gsap.from(".problem-card", {
-          y: 60,
-          opacity: 0,
-          stagger: 0.12,
-          duration: 0.8,
-          ease: "power4.out",
-          scrollTrigger: {
-            trigger: trackRef.current,
-            start: "top 75%",
+            start: "top 85%",
           },
-        });
-
-        // Mobile Counters
-        const cards = gsap.utils.toArray<HTMLElement>(".problem-card");
-        cards.forEach((card) => {
-          const counterSpan = card.querySelector(".stat-counter");
-          if (counterSpan) {
-            const endVal = parseFloat(counterSpan.getAttribute("data-value") || "0");
-            const dec = parseInt(counterSpan.getAttribute("data-decimals") || "0", 10);
-            const obj = { val: 0 };
-            gsap.to(obj, {
-              val: endVal,
-              duration: 2,
-              ease: "power4.out",
-              scrollTrigger: {
-                trigger: card,
-                start: "top 85%",
-              },
-              onUpdate: () => {
-                counterSpan.textContent = obj.val.toFixed(dec);
-              }
-            });
-          }
+          onUpdate: () => {
+            counter.textContent = obj.val.toFixed(decimals);
+          },
         });
       });
     },
@@ -131,81 +57,86 @@ export default function ProblemSection() {
   return (
     <section
       ref={container}
-      className="section-padding relative overflow-hidden min-h-screen flex items-center"
-      style={{ background: "var(--deep-navy)" }}
+      className="relative overflow-hidden"
+      style={{
+        backgroundColor: "#ffffff",
+        borderTop: "1px solid #e2e8f0",
+        borderBottom: "1px solid #e2e8f0",
+        paddingTop: "3.5rem",
+        paddingBottom: "3.5rem",
+      }}
     >
-      <div className="absolute inset-0 bg-grid pointer-events-none" />
-
-      <div className="container-narrow relative z-10 flex flex-col lg:flex-row items-center premium-gap-xl w-full">
-        {/* Left Side: Header */}
-        <div className="lg:w-1/2 flex flex-col justify-center py-24 lg:py-0 overflow-hidden">
-          <div className="problem-header max-w-xl shrink-0">
-            <p className="label-text mb-4 tracking-widest">THE CHALLENGE</p>
-            <h2 className="heading-lg leading-tight">The Stroke No One Sees Coming.</h2>
-            <p className="body-lg mt-8 text-neutral-300 leading-relaxed">
-              Distal Medium Vessel Occlusion (DMVO) accounts for up to 25% of
-              strokes - yet standard imaging and clinical assessment routinely
-              misses it.
-            </p>
-          </div>
-        </div>
-
-        {/* Right Side: Stacked Sequence */}
-        <div className="lg:w-1/2 flex flex-col justify-center pb-24 lg:py-0 w-full">
-            <div 
-              ref={trackRef} 
-              className="relative flex flex-col gap-8 lg:block w-full lg:h-[320px]"
+      <div className="container-wide relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          className="stats-bar grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+            alignItems: "center",
+          }}
+        >
+          {PROBLEM_STATS.map((stat, i) => (
+            <div
+              key={i}
+              className="stat-item flex flex-col items-center justify-center text-center px-4"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+                paddingLeft: "1rem",
+                paddingRight: "1rem",
+                paddingTop: "1rem",
+                paddingBottom: "1rem",
+                borderRight: i < PROBLEM_STATS.length - 1 ? "1px solid #e2e8f0" : "none",
+              }}
             >
-              {/* Stats */}
-              {PROBLEM_STATS.map((stat, i) => (
-                <div key={i} className="problem-card glass-card premium-card-padding flex flex-col items-center justify-center text-center w-full lg:absolute lg:inset-0">
-                  <div className="flex items-baseline justify-center gap-2">
-                    <span 
-                      className="stat-counter text-5xl md:text-7xl font-black text-gradient" 
-                      data-value={stat.value} 
-                      data-decimals={stat.value % 1 !== 0 ? 1 : 0}
-                    >
-                      0
-                    </span>
-                    <span className="text-3xl md:text-4xl font-bold text-gradient">
-                      {stat.suffix}
-                    </span>
-                  </div>
-                  <p className="body-lg mt-6 text-neutral-300">{stat.label}</p>
-                </div>
-              ))}
-
-              {/* LVO - Visible */}
-              <div className="problem-card glass-card premium-card-padding flex flex-col items-center justify-center text-center w-full lg:absolute lg:inset-0">
-                <p className="label-text mb-6 text-[var(--accent-green)] tracking-widest text-sm">
-                  M1 LARGE VESSEL OCCLUSION
-                </p>
-                <div className="relative h-48 w-full max-w-sm bg-[var(--neutral-900)] rounded-xl flex items-center justify-center overflow-hidden">
-                  <div className="w-20 h-20 rounded-full border-4 border-[var(--accent-green)] flex items-center justify-center shadow-[0_0_30px_rgba(16,185,129,0.3)]">
-                    <div className="w-8 h-8 rounded-full bg-[var(--accent-green)] opacity-50 blur-sm" />
-                  </div>
-                  <span className="absolute bottom-4 right-4 text-sm font-mono font-bold text-[var(--accent-green)] bg-[rgba(16,185,129,0.15)] px-3 py-1.5 rounded-md border border-[rgba(16,185,129,0.3)] backdrop-blur-md">
-                    VISIBLE
-                  </span>
-                </div>
+              <div
+                className="stat-value font-serif flex items-baseline justify-center"
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  fontSize: "3.25rem",
+                  fontWeight: 400,
+                  lineHeight: 1,
+                  color: "#1e293b",
+                  display: "flex",
+                  alignItems: "baseline",
+                  justifyContent: "center",
+                }}
+              >
+                <span
+                  className="stat-counter"
+                  data-value={stat.value}
+                  data-decimals={stat.value % 1 !== 0 ? 1 : 0}
+                  style={{ color: "#1e293b" }}
+                >
+                  0
+                </span>
+                <span style={{ color: "#1e293b", fontSize: "3.25rem", marginLeft: stat.suffix.startsWith(" ") ? "0.35rem" : "0" }}>
+                  {stat.suffix.trim()}
+                </span>
               </div>
 
-              {/* DMVO - Missed */}
-              <div className="problem-card glass-card premium-card-padding flex flex-col items-center justify-center text-center w-full lg:absolute lg:inset-0">
-                <p className="label-text mb-6 text-[var(--accent-red)] tracking-widest text-sm">
-                  M3 DISTAL OCCLUSION
-                </p>
-                <div className="relative h-48 w-full max-w-sm bg-[var(--neutral-900)] rounded-xl flex items-center justify-center overflow-hidden">
-                  <div className="w-10 h-10 rounded-full border-2 border-dashed border-[var(--accent-red)] opacity-40" />
-                  <span className="absolute bottom-4 right-4 text-sm font-mono font-bold text-[var(--accent-red)] bg-[rgba(239,68,68,0.15)] px-3 py-1.5 rounded-md border border-[rgba(239,68,68,0.3)] backdrop-blur-md">
-                    MISSED
-                  </span>
-                  <div className="absolute inset-0 bg-[rgba(239,68,68,0.02)]" />
-                </div>
-              </div>
+              <p
+                className="stat-label font-sans"
+                style={{
+                  color: "#475569",
+                  fontSize: "0.85rem",
+                  fontWeight: 500,
+                  marginTop: "0.75rem",
+                  lineHeight: 1.4,
+                  textAlign: "center",
+                  maxWidth: "210px",
+                  margin: "0.75rem auto 0 auto",
+                }}
+              >
+                {stat.label}
+              </p>
             </div>
-          </div>
-          </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }

@@ -21,10 +21,10 @@ export default function HeroSection() {
         ease: "power4.out",
       });
       
-      gsap.from(".hero-video-anim", {
-        y: 100,
-        opacity: 0,
-        duration: 1.2,
+      // Animate the video frame
+      gsap.from(".hero-video-wrapper-anim", {
+        y: "100%",
+        duration: 1.4,
         delay: 0.5,
         ease: "power4.out",
       });
@@ -35,8 +35,8 @@ export default function HeroSection() {
   return (
     <section
       ref={container}
-      className="relative pb-24 overflow-hidden flex flex-col items-center justify-start min-h-screen"
-      style={{ background: "var(--hero-gradient)", paddingTop: "180px" }}
+      className="relative pb-0 overflow-hidden flex flex-col items-center justify-between min-h-screen"
+      style={{ background: "var(--hero-gradient)", paddingTop: "210px" }}
     >
       {/* Background */}
       <div className="absolute inset-0 bg-grid pointer-events-none" />
@@ -45,7 +45,7 @@ export default function HeroSection() {
       {/* Content */}
       <div className="container-wide relative z-10 flex flex-col items-center text-center">
         <p 
-          className="hero-anim tracking-widest text-sm uae-gradient-text font-bold inline-block"
+          className="hero-anim tracking-widest text-sm uae-gradient-text font-mono font-bold inline-block"
           style={{ marginBottom: "1.5rem", textTransform: "uppercase" }}
         >
           Building Sovereign UAE IP | Predictive Healthcare
@@ -82,7 +82,7 @@ export default function HeroSection() {
           className="hero-anim flex gap-6 flex-wrap justify-center"
           style={{ marginTop: "3rem" }}
         >
-          <Link href="/solutions" className="btn-secondary">
+          <Link href="/#stroke-detection" className="btn-secondary">
             Explore Technology
           </Link>
         </div>
@@ -90,23 +90,23 @@ export default function HeroSection() {
       
       {/* Huge Video Section */}
       <div 
-        className="hero-video-anim relative z-20 w-full max-w-7xl mx-auto px-4 md:px-8"
-        style={{ marginTop: "5rem" }}
+        className="relative z-20 w-full max-w-6xl mx-auto px-4 md:px-8 mt-auto pt-16"
       >
-        {/* Inline glow mimicking the reference image */}
+        {/* Soft Blue Ambient Glow */}
         <div 
-          className="absolute inset-0 blur-[100px] opacity-50 rounded-[3rem]" 
+          className="absolute inset-x-4 md:inset-x-8 inset-y-0 blur-[90px] opacity-70 rounded-t-[3rem] pointer-events-none" 
           style={{ 
-            background: "var(--primary-blue)",
-            transform: "translateY(5%) scale(0.95)",
-            zIndex: -1
+            background: "linear-gradient(180deg, rgba(0, 102, 255, 0.6) 0%, rgba(77, 159, 255, 0.4) 100%)",
+            transform: "scale(0.98)",
+            zIndex: 1
           }} 
         />
-        
+
         <div 
-          className="relative rounded-t-[2rem] overflow-hidden border border-white/40 bg-black/10 backdrop-blur-xl"
+          className="hero-video-wrapper-anim relative rounded-t-[2rem] rounded-b-none overflow-hidden bg-black/20 backdrop-blur-xl w-full border-t border-x border-white/10"
           style={{
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 60px rgba(0, 102, 255, 0.3)"
+            boxShadow: "0 -25px 60px -12px rgba(0, 102, 255, 0.25)",
+            zIndex: 2
           }}
         >
           <video
@@ -115,12 +115,12 @@ export default function HeroSection() {
             loop
             muted
             playsInline
-            className="w-full h-auto object-cover rounded-t-[2rem] opacity-75"
-            style={{ maxHeight: "80vh" }}
+            className="w-full h-auto object-cover rounded-t-[2rem] rounded-b-none block"
+            style={{ maxHeight: "80vh", opacity: 0.8 }}
             preload="auto"
           />
-          {/* Subtle overlay gradient to blend the video edges */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none rounded-t-[2rem]" />
+          {/* Subtle overlay gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10 pointer-events-none rounded-t-[2rem]" />
         </div>
       </div>
     </section>

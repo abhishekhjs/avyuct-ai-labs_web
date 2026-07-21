@@ -1,11 +1,8 @@
+"use client";
+
 import Link from "next/link";
-import Image from "next/image";
-import {
-  NAV_LINKS,
-  SOCIAL_LINKS,
-  CONTACT,
-  FOOTER_BADGES,
-} from "@/lib/constants";
+import { useState, useEffect } from "react";
+import { NAV_LINKS, SOCIAL_LINKS, CONTACT } from "@/lib/constants";
 
 /* ── Social SVG Icons ───────────────────────────────────────────── */
 function LinkedInIcon() {
@@ -13,65 +10,20 @@ function LinkedInIcon() {
     <svg
       viewBox="0 0 24 24"
       fill="currentColor"
-      className="w-5 h-5"
+      className="w-3.5 h-3.5"
       aria-hidden="true"
     >
-      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
     </svg>
   );
 }
 
-function XIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className="w-5 h-5"
-      aria-hidden="true"
-    >
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-    </svg>
-  );
-}
-
-function YouTubeIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className="w-5 h-5"
-      aria-hidden="true"
-    >
-      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-    </svg>
-  );
-}
-
-/* ── Map-pin icon for office locations ──────────────────────────── */
-function MapPinIcon() {
-  return (
-    <svg
-      viewBox="0 0 20 20"
-      fill="currentColor"
-      className="w-4 h-4 shrink-0 mt-0.5"
-      aria-hidden="true"
-    >
-      <path
-        fillRule="evenodd"
-        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-        clipRule="evenodd"
-      />
-    </svg>
-  );
-}
-
-/* ── Mail icon ──────────────────────────────────────────────────── */
 function MailIcon() {
   return (
     <svg
       viewBox="0 0 20 20"
       fill="currentColor"
-      className="w-4 h-4 shrink-0 mt-0.5"
+      className="w-3.5 h-3.5"
       aria-hidden="true"
     >
       <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
@@ -80,121 +32,193 @@ function MailIcon() {
   );
 }
 
-/* ── Footer Component (Server Component) ────────────────────────── */
-export default function Footer() {
+function ArrowUpRightIcon() {
   return (
-    <footer className="relative bg-[var(--avyuct-mint)] border-t border-[var(--avyuct-slate)]/10 overflow-hidden text-[var(--avyuct-slate)]">
-      {/* Premium Background Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[var(--avyuct-green)]/10 blur-[150px] rounded-full pointer-events-none opacity-60" />
-      
-      <div className="relative container-narrow" style={{ paddingTop: '8rem', paddingBottom: '8rem' }}>
-        {/* ── Three-column grid ────────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3" style={{ gap: '6rem' }}>
-          {/* Column 1 - Company */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
-            {/* Logo */}
-            <Link href="/" className="inline-flex items-center gap-3 group relative bg-black/5 p-2 rounded-xl border border-black/5 hover:bg-black/10 transition-colors duration-300 w-max">
-              <div className="absolute inset-0 bg-[var(--avyuct-green)]/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-              <Image
-                src="/avyuct-logo-v2.png"
-                alt="Avyuct AI Labs Logo"
-                width={200}
-                height={60}
-                className="h-12 w-auto object-contain relative z-10 transition-transform duration-500 group-hover:scale-105"
-              />
-            </Link>
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      className="w-3.5 h-3.5"
+      aria-hidden="true"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+      />
+    </svg>
+  );
+}
 
-            <p className="text-[var(--avyuct-slate-light)] leading-relaxed max-w-sm text-sm lg:text-base font-medium">
-              Pioneering AI-powered vascular health solutions. Detecting and localizing the
-              strokes no one sees coming with advanced world models.
+/* ── Footer Component ───────────────────────────────────────────── */
+export default function Footer() {
+  const [currentTime, setCurrentTime] = useState("");
+  const [isDay, setIsDay] = useState(true);
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      // Dubai is UTC+4
+      const dubaiTimeStr = now.toLocaleTimeString("en-US", {
+        timeZone: "Asia/Dubai",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
+      setCurrentTime(dubaiTimeStr);
+
+      const dubaiHour = parseInt(
+        now.toLocaleTimeString("en-US", {
+          timeZone: "Asia/Dubai",
+          hour: "numeric",
+          hour12: false,
+        }),
+        10
+      );
+      setIsDay(dubaiHour >= 6 && dubaiHour < 18);
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <footer className="w-full bg-[var(--neutral-950)] py-6 px-2 md:px-4 lg:px-6 flex flex-col items-center">
+      {/* Curved Card Container */}
+      <div 
+        className="relative w-full max-w-[1680px] mx-auto text-[#111111] overflow-hidden flex flex-col justify-between"
+        style={{
+          backgroundColor: "#E2EFE5",
+          borderRadius: "2.5rem",
+          minHeight: "480px",
+        }}
+      >
+        {/* Main Grid Content */}
+        <div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-4 relative z-10"
+          style={{
+            paddingLeft: "clamp(2rem, 5vw, 5rem)",
+            paddingRight: "clamp(2rem, 5vw, 5rem)",
+            paddingTop: "4.5rem",
+          }}
+        >
+          {/* Column 1 - Bio/Description */}
+          <div className="lg:col-span-4 flex flex-col gap-4">
+            <p className="text-xl md:text-2xl font-bold tracking-tight leading-snug max-w-sm text-[#111111]">
+              Avyuct AI Labs is building sovereign UAE IP for predictive healthcare and stroke intelligence.
             </p>
+          </div>
 
-            {/* Social icons */}
-            <div className="flex items-center gap-5 pt-2">
+          {/* Column 2 - Navigation */}
+          <div className="lg:col-span-2 lg:pl-4">
+            <h4 className="text-xs font-bold text-neutral-500 uppercase tracking-widest mb-4">
+              Explore
+            </h4>
+            <nav className="flex flex-col gap-2.5">
+              {NAV_LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm font-semibold text-neutral-700 hover:text-black transition-colors duration-200"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Column 3 - Social Badges */}
+          <div className="lg:col-span-3">
+            <h4 className="text-xs font-bold text-neutral-500 uppercase tracking-widest mb-4">
+              Follow Us
+            </h4>
+            <div className="flex flex-col gap-2.5 items-start">
+              {/* LinkedIn pill */}
               <a
                 href={SOCIAL_LINKS.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group p-2.5 rounded-full bg-black/5 border border-black/5 text-[var(--avyuct-slate)] hover:bg-[var(--avyuct-slate)] hover:border-[var(--avyuct-slate)] hover:text-white hover:scale-110 hover:shadow-[0_0_20px_rgba(43,63,76,0.3)] transition-all duration-300"
-                aria-label="LinkedIn"
+                className="inline-flex items-center gap-2.5 bg-white px-3.5 py-2 rounded-full border border-black/10 shadow-sm text-xs font-bold text-neutral-800 hover:bg-neutral-50 transition-colors whitespace-nowrap"
               >
-                <LinkedInIcon />
+                <span className="w-5 h-5 rounded-full bg-[#0077b5] flex items-center justify-center text-white shrink-0">
+                  <LinkedInIcon />
+                </span>
+                <span>Avyuct AI Labs</span>
+              </a>
+
+              {/* Email pill */}
+              <a
+                href={`mailto:${CONTACT.email}`}
+                className="inline-flex items-center gap-2.5 bg-white px-3.5 py-2 rounded-full border border-black/10 shadow-sm text-xs font-bold text-neutral-800 hover:bg-neutral-50 transition-colors whitespace-nowrap"
+              >
+                <span className="w-5 h-5 rounded-full bg-[#32a758] flex items-center justify-center text-white shrink-0">
+                  <MailIcon />
+                </span>
+                <span>info@avyuct.com</span>
               </a>
             </div>
           </div>
 
-          {/* Column 2 - Quick Links */}
-          <div className="lg:pl-8">
-            <h3 className="text-sm font-bold tracking-wider text-[var(--avyuct-slate)] uppercase mb-8" style={{ marginBottom: '2.5rem' }}>Quick Links</h3>
-            <ul style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="group inline-flex items-center text-[var(--avyuct-slate-light)] font-medium hover:text-[var(--avyuct-slate)] transition-colors duration-300 text-sm lg:text-base"
-                  >
-                    <span className="w-0 h-[1px] bg-[var(--avyuct-green)] mr-0 group-hover:w-4 group-hover:mr-2 transition-all duration-300 opacity-0 group-hover:opacity-100"></span>
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-              <li className="pt-2">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--avyuct-green)]/10 border border-[var(--avyuct-green)]/30 text-[var(--avyuct-dark-green)] hover:bg-[var(--avyuct-green)] hover:text-white transition-all duration-300 text-sm font-bold group"
-                >
-                  Request Demo
-                  <span className="transform transition-transform duration-300 group-hover:translate-x-1">→</span>
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {/* Column 4 - Actions */}
+          <div className="lg:col-span-3 flex flex-col gap-6">
+            {/* Action 1 */}
+            <Link href="/contact" className="group flex flex-col gap-1 w-fit">
+              <span className="text-xl font-bold tracking-tight text-[#CE1126] flex items-center gap-2">
+                Call Avyuct
+                <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#CE1126] text-white transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0">
+                  <ArrowUpRightIcon />
+                </span>
+              </span>
+              <span className="text-xs font-semibold text-neutral-500">
+                Let's work together
+              </span>
+            </Link>
 
-          {/* Column 3 - Contact */}
-          <div>
-            <h3 className="text-sm font-bold tracking-wider text-[var(--avyuct-slate)] uppercase mb-8" style={{ marginBottom: '2.5rem' }}>Contact</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-              {/* Location */}
-              <div className="flex items-start gap-3 group">
-                <div className="p-2 rounded-lg bg-black/5 text-[var(--avyuct-green)] group-hover:bg-[var(--avyuct-green)] group-hover:text-white transition-colors duration-300">
-                  <MapPinIcon />
-                </div>
-                <div>
-                  <p className="text-sm text-[var(--avyuct-slate-light)] font-medium" style={{ marginTop: "0.25rem" }}>
-                    {CONTACT.headquarters.address}
-                  </p>
-                </div>
-              </div>
-
-              {/* Email */}
-              <div className="flex items-center gap-3 pt-2">
-                <div className="p-2 rounded-lg bg-black/5 text-[var(--avyuct-green)] group-hover:bg-[var(--avyuct-green)] group-hover:text-white transition-colors duration-300">
-                  <MailIcon />
-                </div>
-                <a
-                  href={`mailto:${CONTACT.email}`}
-                  className="text-sm font-bold text-[var(--avyuct-slate)] hover:text-[var(--avyuct-green)] transition-colors duration-300"
-                >
-                  {CONTACT.email}
-                </a>
-              </div>
-            </div>
+            {/* Action 2 */}
+            <Link href="/#stroke-detection" className="group flex flex-col gap-1 w-fit">
+              <span className="text-xl font-bold tracking-tight text-[#111111] flex items-center gap-2">
+                Solutions & Tech
+                <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#111111] text-white transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0">
+                  <ArrowUpRightIcon />
+                </span>
+              </span>
+              <span className="text-xs font-semibold text-neutral-500">
+                Explore our world models
+              </span>
+            </Link>
           </div>
         </div>
 
-        {/* ── Bottom bar ───────────────────────────────────── */}
-        <div className="border-t border-[var(--avyuct-slate)]/10" style={{ marginTop: '6rem', paddingTop: '3rem' }}>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <p className="text-sm text-[var(--avyuct-slate-light)] font-medium">
-              © {new Date().getFullYear()} Avyuct AI Labs. All rights reserved.
-            </p>
+        {/* Large bottom logo text */}
+        <div className="relative w-full overflow-hidden select-none pointer-events-none mt-12 md:mt-16 flex justify-center">
+          <span 
+            className="font-black text-[15vw] leading-none tracking-tighter text-[#111111] translate-y-[22%] font-sans whitespace-nowrap inline-flex items-baseline"
+            style={{ fontFamily: "var(--font-body)" }}
+          >
+            av<span className="inline-block" style={{ fontSize: "0.82em", transform: "translateY(-0.1em)" }}>y</span>uct
+          </span>
+        </div>
+      </div>
 
-            <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
-              <span className="text-xs font-bold tracking-wide text-[var(--avyuct-slate)] uppercase">
-                Dubai, UAE
-              </span>
-            </div>
-          </div>
+      {/* Under-card info bar */}
+      <div 
+        className="w-full max-w-[1680px] mx-auto px-4 md:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-bold text-neutral-600"
+        style={{ marginTop: "1.5rem" }}
+      >
+        <div>
+          Avyuct © {new Date().getFullYear()} •{" "}
+          <Link href="/privacy" className="hover:text-black transition-colors">
+            Privacy Policy
+          </Link>
+        </div>
+        <div className="flex items-center gap-2">
+          <span>Dubai, UAE</span>
+          <span>•</span>
+          <span className="tabular-nums">{currentTime || "12:00 PM"}</span>
+          <span>•</span>
+          <span>36°C {isDay ? "☀️" : "🌙"}</span>
         </div>
       </div>
     </footer>

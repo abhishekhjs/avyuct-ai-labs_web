@@ -6,10 +6,10 @@ import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { OBJLoader } from "three-stdlib";
 
-// Colors requested by the user
-const COLORS = ["#00ff88", "#00bfff", "#ffdd00"]; // Green, Blue, Yellow
+// Colors requested by the user (weighted more towards blue)
+const COLORS = ["#00bfff", "#00bfff", "#00bfff", "#00ff88", "#ffdd00"]; // Blue (60%), Green (20%), Yellow (20%)
 
-function BrainParticles() {
+function BrainParticles({ scaleFactor = 1, dotColor, yOffset = -60 }: { scaleFactor?: number; dotColor?: string; yOffset?: number }) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   
   // Load the brain.obj file from the public folder
@@ -78,7 +78,7 @@ function BrainParticles() {
     
     // We want the brain to have an average radius of roughly 140 units
     // This guarantees it will look massive and beautiful on screen
-    const scale = avgRadius === 0 ? 1 : 60 / avgRadius;
+    const scale = (avgRadius === 0 ? 1 : 60 / avgRadius) * scaleFactor;
 
     const color = new THREE.Color();
 
@@ -87,8 +87,8 @@ function BrainParticles() {
       
       // Center and scale using the new outlier-proof math
       const x = (rawVertices[idx] - centerX) * scale;
-      // Shift the model down by 60 units visually
-      const y = ((rawVertices[idx + 1] - centerY) * scale) - 60;
+      // Shift the model vertically by yOffset
+      const y = ((rawVertices[idx + 1] - centerY) * scale) + yOffset;
       const z = (rawVertices[idx + 2] - centerZ) * scale;
 
       positions[i * 3] = x;
@@ -108,8 +108,12 @@ function BrainParticles() {
       randomOffsets[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
       randomOffsets[i * 3 + 2] = r * Math.cos(phi);
 
-      // Randomly assign one of the 3 requested colors
-      color.set(COLORS[Math.floor(Math.random() * COLORS.length)]);
+      // Evenly distribute the 3 requested colors
+      if (dotColor) {
+        color.set(dotColor);
+      } else {
+        color.set(COLORS[i % COLORS.length]);
+      }
       colors[i * 3] = color.r;
       colors[i * 3 + 1] = color.g;
       colors[i * 3 + 2] = color.b;
@@ -119,7 +123,7 @@ function BrainParticles() {
   }, [obj]);
 
   // Set up the InstancedMesh matrix and colors on initial mount
-  useMemo(() => {
+  useEffect(() => {
     if (!meshRef.current) return;
     const dummy = new THREE.Object3D();
     const color = new THREE.Color();
@@ -247,15 +251,16 @@ function BrainParticles() {
       onPointerOut={() => document.body.style.cursor = 'auto'}
     >
       <sphereGeometry args={[0.4, 8, 8]} />
-      <meshStandardMaterial 
-        roughness={0.4}
-        metalness={0.6}
-      />
+      {dotColor ? (
+        <meshBasicMaterial />
+      ) : (
+        <meshStandardMaterial roughness={0.4} metalness={0.6} />
+      )}
     </instancedMesh>
   );
 }
 
-export default function InteractiveBrain() {
+export default function InteractiveBrain({ scaleFactor = 1, dotColor, yOffset = -60 }: { scaleFactor?: number; dotColor?: string; yOffset?: number }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -284,7 +289,7 @@ export default function InteractiveBrain() {
         
         <React.Suspense fallback={null}>
           <group rotation={[0, Math.PI / 4, 0]}>
-            <BrainParticles />
+            <BrainParticles scaleFactor={scaleFactor} dotColor={dotColor} yOffset={yOffset} />
           </group>
         </React.Suspense>
         

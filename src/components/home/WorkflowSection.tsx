@@ -1,11 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { WORKFLOW_STEPS } from "@/lib/constants";
-import GlassCard from "@/components/ui/GlassCard";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -13,100 +12,301 @@ if (typeof window !== "undefined") {
 
 const STEP_ICONS: Record<string, React.ReactNode> = {
   data: (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--primary-blue)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="40" height="40" viewBox="0 0 32 32" fill="none" stroke="#1e1b4b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <ellipse cx="16" cy="8" rx="10" ry="4" />
       <path d="M6 8v8c0 2.2 4.5 4 10 4s10-1.8 10-4V8" />
       <path d="M6 16v8c0 2.2 4.5 4 10 4s10-1.8 10-4v-8" />
     </svg>
   ),
   training: (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--primary-blue)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="40" height="40" viewBox="0 0 32 32" fill="none" stroke="#422006" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="16" cy="16" r="12" />
       <path d="M16 8c2 2 3.5 5 3.5 8s-1.5 6-3.5 8c-2-2-3.5-5-3.5-8s1.5-6 3.5-8z" />
       <path d="M8 12h16M8 20h16" opacity="0.5" />
     </svg>
   ),
   inference: (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--primary-blue)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M18 4l-4 12h8L14 28" strokeWidth="2" />
+    <svg width="40" height="40" viewBox="0 0 32 32" fill="none" stroke="#083344" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M18 4l-4 12h8L14 28" strokeWidth="2.5" />
     </svg>
   ),
   insight: (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--primary-blue)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="40" height="40" viewBox="0 0 32 32" fill="none" stroke="#431407" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M4 28h24" />
-      <path d="M8 28V18" strokeWidth="3" opacity="0.3" />
-      <path d="M14 28V14" strokeWidth="3" opacity="0.5" />
-      <path d="M20 28V10" strokeWidth="3" opacity="0.7" />
+      <path d="M8 28V18" strokeWidth="3" opacity="0.4" />
+      <path d="M14 28V14" strokeWidth="3" opacity="0.6" />
+      <path d="M20 28V10" strokeWidth="3" opacity="0.8" />
       <path d="M26 28V6" strokeWidth="3" />
-      <circle cx="26" cy="6" r="2" fill="var(--primary-blue)" />
+      <circle cx="26" cy="6" r="2.5" fill="#431407" />
     </svg>
   ),
 };
 
+const CARD_THEMES = [
+  {
+    bg: "#eef2ff", // Soft Lavender
+    border: "#c7d2fe",
+    text: "#1e1b4b",
+    badgeBg: "#e0e7ff",
+    badgeText: "#3730a3",
+    tagline: "Automated Data Ingestion & Preprocessing",
+  },
+  {
+    bg: "#fef9c3", // Soft Warm Cream/Yellow
+    border: "#fef08a",
+    text: "#422006",
+    badgeBg: "#fef08a",
+    badgeText: "#854d0e",
+    tagline: "JEPA World Model & Deep Neural Training",
+  },
+  {
+    bg: "#e0f2fe", // Soft Cyan/Sky
+    border: "#bae6fd",
+    text: "#083344",
+    badgeBg: "#bae6fd",
+    badgeText: "#075985",
+    tagline: "Sub-Second Point of Care Inference",
+  },
+  {
+    bg: "#ffedd5", // Soft Peach/Rose
+    border: "#fed7aa",
+    text: "#431407",
+    badgeBg: "#fed7aa",
+    badgeText: "#9a3412",
+    tagline: "Triage Alerting & Clinical Reporting",
+  },
+];
+
 export default function WorkflowSection() {
   const container = useRef<HTMLElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
 
   useGSAP(
     () => {
-      gsap.from(".workflow-header", {
-        y: 60,
-        opacity: 0,
-        duration: 1,
-        ease: "power4.out",
-        scrollTrigger: { trigger: container.current, start: "top 80%" },
-      });
+      gsap.fromTo(
+        ".workflow-header",
+        { y: 40, autoAlpha: 0 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: { trigger: container.current, start: "top 85%" },
+        }
+      );
 
-      gsap.from(".workflow-card", {
-        y: 80,
-        opacity: 0,
-        stagger: 0.15,
-        duration: 0.8,
-        ease: "power4.out",
-        scrollTrigger: { trigger: trackRef.current, start: "top 70%" },
-      });
+      gsap.fromTo(
+        ".workflow-accordion",
+        { y: 50, autoAlpha: 0 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: { trigger: container.current, start: "top 80%" },
+        }
+      );
     },
     { scope: container }
   );
 
-  const CARD_COLORS = [
-    "linear-gradient(135deg, #F59E0B, #D97706)", // Yellow/Orange
-    "linear-gradient(135deg, #EF4444, #B91C1C)", // Red
-    "linear-gradient(135deg, #14B8A6, #0F766E)", // Teal
-    "linear-gradient(135deg, #3B82F6, #1D4ED8)", // Blue
-  ];
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % WORKFLOW_STEPS.length);
+  };
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev - 1 + WORKFLOW_STEPS.length) % WORKFLOW_STEPS.length);
+  };
 
   return (
-    <section ref={container} className="section-padding relative overflow-hidden min-h-screen flex items-center justify-center" style={{ background: "var(--deep-navy)" }}>
-      <div className="absolute inset-0 bg-grid pointer-events-none" />
+    <section
+      ref={container}
+      className="relative overflow-hidden"
+      style={{
+        background: "#ffffff",
+        paddingTop: "7rem",
+        paddingBottom: "7rem",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div
+        className="relative z-10"
+        style={{
+          maxWidth: "1280px",
+          width: "100%",
+          marginLeft: "auto",
+          marginRight: "auto",
+          paddingLeft: "1.5rem",
+          paddingRight: "1.5rem",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        {/* Header with Navigation Controls on Right - Centered layout */}
+        <div
+          className="workflow-header"
+          style={{
+            width: "100%",
+            maxWidth: "1150px",
+            marginLeft: "auto",
+            marginRight: "auto",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-end",
+            justifyContent: "space-between",
+            marginBottom: "3rem",
+            gap: "1.5rem",
+          }}
+        >
+          <div className="max-w-2xl">
+            <p
+              className="label-text mb-3 tracking-widest text-xs uppercase font-mono font-bold"
+              style={{ color: "var(--avyuct-green)" }}
+            >
+              HOW IT WORKS
+            </p>
+            <h2 className="heading-lg font-serif font-black text-slate-900 leading-tight text-3xl sm:text-4xl lg:text-5xl">
+              Discover How It Works
+            </h2>
+            <p className="body-md text-slate-600 text-base lg:text-lg mt-3 leading-relaxed">
+              Your Guide to Seamless Clinical &amp; Vascular AI Triage
+            </p>
+          </div>
 
-      <div className="w-full px-4 md:px-8 lg:px-16 xl:px-24 mx-auto max-w-[1600px] relative z-10 flex flex-col items-center">
-        {/* Header centered */}
-        <div className="workflow-header w-full flex flex-col items-center text-center max-w-3xl mx-auto" style={{ marginBottom: "5rem" }}>
-          <p className="label-text mb-4 tracking-widest text-neutral-400 text-center">OUR WORKFLOW</p>
-          <h2 className="heading-lg leading-tight text-center">Data to Insight in Seconds</h2>
-          <p className="body-lg mt-6 text-neutral-300 leading-relaxed text-center mx-auto max-w-xl">
-            Our seamless integration ensures you never have to change your existing clinical workflow.
-          </p>
+          {/* Slider Arrow Controls */}
+          <div className="flex items-center gap-3 shrink-0">
+            <button
+              onClick={handlePrev}
+              aria-label="Previous step"
+              className="w-12 h-12 rounded-full bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center transition-all duration-200 active:scale-95 shadow-md"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={handleNext}
+              aria-label="Next step"
+              className="w-12 h-12 rounded-full bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center transition-all duration-200 active:scale-95 shadow-md"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
         </div>
 
-        {/* 4-Card Horizontal Layout */}
-        <div className="w-full relative py-10" ref={trackRef}>
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 premium-gap">
-            {WORKFLOW_STEPS.map((step) => (
-              <div key={step.step} className="workflow-card w-full">
-                <GlassCard hover className="h-full flex flex-col premium-card-padding items-center justify-center text-center">
-                  <div className="mb-6 flex justify-center shrink-0">
-                    {STEP_ICONS[step.icon]}
+        {/* Horizontal Accordion Stack - Centered with hardcoded inline CSS */}
+        <div
+          className="workflow-accordion flex flex-col lg:flex-row"
+          style={{
+            display: "flex",
+            gap: "1rem",
+            width: "100%",
+            maxWidth: "1150px",
+            marginLeft: "auto",
+            marginRight: "auto",
+            minHeight: "340px",
+            height: "340px",
+            justifyContent: "center",
+            alignItems: "stretch",
+          }}
+        >
+          {WORKFLOW_STEPS.map((step, index) => {
+            const isExpanded = activeIndex === index;
+            const theme = CARD_THEMES[index];
+
+            return (
+              <div
+                key={step.step}
+                onMouseEnter={() => setActiveIndex(index)}
+                onClick={() => setActiveIndex(index)}
+                className={`relative cursor-pointer ${
+                  isExpanded ? "shadow-xl ring-2 ring-slate-900/10" : "opacity-90 hover:opacity-100 hover:shadow-md"
+                }`}
+                style={{
+                  backgroundColor: theme.bg,
+                  color: theme.text,
+                  border: `1px solid ${theme.border}`,
+                  padding: "1.75rem",
+                  borderRadius: "1.5rem",
+                  flex: isExpanded ? "3.5 1 0%" : "1 1 0%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  overflow: "hidden",
+                  transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+              >
+                {/* Top Section: Circled Step Number */}
+                <div className="flex items-center justify-between w-full mb-6">
+                  <div
+                    className="w-12 h-12 rounded-full border-2 border-current flex items-center justify-center text-xl font-bold font-mono shrink-0 shadow-xs"
+                    style={{ borderColor: theme.text }}
+                  >
+                    {step.step}
                   </div>
-                  <h3 className="heading-sm text-center">{step.title}</h3>
-                  <p className="body-lg mt-4 text-neutral-300 text-center">{step.description}</p>
-                </GlassCard>
+
+                  {isExpanded && (
+                    <span
+                      className="px-3.5 py-1 rounded-full text-xs font-bold font-mono tracking-wide"
+                      style={{ backgroundColor: theme.badgeBg, color: theme.badgeText }}
+                    >
+                      Step 0{step.step}
+                    </span>
+                  )}
+                </div>
+
+                {/* Content Section */}
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3
+                      className={`font-serif font-bold transition-all duration-300 leading-snug ${
+                        isExpanded ? "text-2xl sm:text-3xl mb-4" : "text-xl mb-2"
+                      }`}
+                    >
+                      {step.title}
+                    </h3>
+
+                    {isExpanded && (
+                      <div className="animate-fadeIn">
+                        <p
+                          className="font-medium text-xs uppercase tracking-wider mb-4 font-mono opacity-80"
+                          style={{ color: theme.badgeText }}
+                        >
+                          {theme.tagline}
+                        </p>
+                        <p className="text-base lg:text-lg leading-relaxed opacity-90 max-w-xl">
+                          {step.description}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Icon Graphic at Bottom Right */}
+                  <div className="flex items-end justify-between mt-6 pt-4 border-t border-black/5">
+                    {isExpanded ? (
+                      <div className="text-xs font-bold font-mono uppercase tracking-wider opacity-70">
+                        Avyuct AI Pipeline Phase 0{step.step}
+                      </div>
+                    ) : (
+                      <div className="text-xs font-bold font-mono opacity-60">Hover to expand</div>
+                    )}
+                    <div className="shrink-0 transition-transform duration-300 transform group-hover:scale-110">
+                      {STEP_ICONS[step.icon]}
+                    </div>
+                  </div>
+                </div>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
+

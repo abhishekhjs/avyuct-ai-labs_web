@@ -104,7 +104,7 @@ export default function ContactForm() {
     <section
       ref={container}
       style={{
-        paddingTop: "clamp(5rem, 8vh, 6rem)",
+        paddingTop: "11rem",
         paddingBottom: "clamp(4rem, 10vh, 7rem)",
         overflow: "hidden",
         position: "relative",
@@ -121,32 +121,7 @@ export default function ContactForm() {
           zIndex: 1,
         }}
       >
-        {/* Section Header - centered */}
-        <div
-          className="cf-wrapper"
-          style={{
-            textAlign: "center",
-            marginBottom: "3.5rem",
-          }}
-        >
-          <h2
-            className="heading-lg"
-            style={{ marginBottom: "0.75rem" }}
-          >
-            Request a Demo
-          </h2>
-          <p
-            style={{
-              fontSize: "1.0625rem",
-              lineHeight: 1.7,
-              color: "var(--neutral-400)",
-              maxWidth: "560px",
-              margin: "0 auto",
-            }}
-          >
-            Fill out the form and our team will get back to you shortly to schedule your personalized demo.
-          </p>
-        </div>
+
 
         {/* Main content wrapper */}
         <div

@@ -15,6 +15,7 @@ const STAGES = [
     num: "01",
     title: "Multimodal Input",
     description: "CT, MRI, ultrasound, and other imaging systems capturing raw data from the human body.",
+    gradient: "radial-gradient(circle at 75% 105%, rgba(254, 224, 110, 0.28) 0%, rgba(245, 158, 11, 0.12) 45%, transparent 75%)",
     icon: (
       <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="var(--primary-blue)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <rect x="4" y="4" width="28" height="20" rx="3" />
@@ -27,6 +28,7 @@ const STAGES = [
     num: "02",
     title: "JEPA Causal Learning",
     description: "Causal representation learning to understand vascular structures, tissue context, and disease patterns beyond pixel matching.",
+    gradient: "radial-gradient(circle at 75% 105%, rgba(52, 211, 153, 0.26) 0%, rgba(6, 182, 212, 0.14) 45%, transparent 75%)",
     icon: (
       <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="var(--primary-blue)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="18" cy="18" r="13" />
@@ -41,6 +43,7 @@ const STAGES = [
     num: "03",
     title: "Predictive Output",
     description: "Real-time, actionable, full-body vascular map enabling clinicians to instantly analyze cerebral blood flow.",
+    gradient: "radial-gradient(circle at 75% 105%, rgba(129, 140, 248, 0.28) 0%, rgba(59, 130, 246, 0.16) 45%, transparent 75%)",
     icon: (
       <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="var(--primary-blue)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M4 28h28" />
@@ -70,13 +73,6 @@ export default function WorldModel() {
         duration: 0.8,
         ease: "power4.out",
         scrollTrigger: { trigger: ".wm-stages", start: "top 70%" },
-      });
-      gsap.from(".wm-callout", {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        ease: "power4.out",
-        scrollTrigger: { trigger: ".wm-callout", start: "top 80%" },
       });
     },
     { scope: container }
@@ -109,45 +105,24 @@ export default function WorldModel() {
         <div className="wm-stages grid grid-cols-1 md:grid-cols-3 premium-gap" style={{ marginTop: "5rem" }}>
           {STAGES.map((stage) => (
             <div key={stage.num} className="wm-stage w-full h-full">
-              <GlassCard className="premium-card-padding h-full flex flex-col items-start">
-                <p className="label-text" style={{ marginBottom: "1rem" }}>STAGE {stage.num}</p>
-                <div style={{ marginBottom: "1.5rem" }}>{stage.icon}</div>
-                <h3 className="heading-sm">{stage.title}</h3>
-                <p className="body-md premium-mt">{stage.description}</p>
+              <GlassCard glowColor="transparent" className="group premium-card-padding h-full flex flex-col items-start relative overflow-hidden">
+                {/* Unique Ambient Bottom Gradient Texture (Hover only) */}
+                <div
+                  className="absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  style={{
+                    background: stage.gradient,
+                    zIndex: 0,
+                  }}
+                />
+                <div className="relative z-10 w-full h-full flex flex-col items-start">
+                  <p className="label-text" style={{ marginBottom: "1rem" }}>STAGE {stage.num}</p>
+                  <div style={{ marginBottom: "1.5rem" }}>{stage.icon}</div>
+                  <h3 className="heading-sm">{stage.title}</h3>
+                  <p className="body-md premium-mt">{stage.description}</p>
+                </div>
               </GlassCard>
             </div>
           ))}
-        </div>
-
-
-
-        {/* UAE Callout */}
-        <div className="w-full flex justify-center relative" style={{ marginTop: "8rem" }}>
-
-          <div className="wm-callout glass-card premium-card-padding max-w-2xl text-center relative z-10" style={{ border: "none" }}>
-            {/* Gradient Border via Mask */}
-            <div style={{
-              position: "absolute",
-              top: 0, right: 0, bottom: 0, left: 0,
-              borderRadius: "1rem",
-              padding: "2px",
-              background: "linear-gradient(135deg, #FF0000, #00732F, #000000)",
-              WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-              WebkitMaskComposite: "xor",
-              maskComposite: "exclude",
-              pointerEvents: "none",
-            }} />
-            
-            <div className="relative z-10">
-              <p className="text-3xl" style={{ marginBottom: "1.5rem" }}>🇦🇪</p>
-              <h3 className="heading-sm">Sovereign AI Development</h3>
-              <p className="body-md premium-mt">
-                Developed entirely in the Emirates as UAE IP, pioneering Abu
-                Dhabi&apos;s shift from reactive triage to proactive predictive care.
-              </p>
-              <p className="label-text premium-mt">NOW BUILDING IN DUBAI</p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
