@@ -39,7 +39,7 @@ export default function SolutionsCTA() {
   );
 
   return (
-    <section ref={container} className="premium-footer-padding relative overflow-hidden" style={{ background: "#ffffff" }}>
+    <section ref={container} className="relative overflow-hidden" style={{ background: "#ffffff", paddingTop: "6rem", paddingBottom: "6rem" }}>
 
 
       <div className="container-narrow relative z-10">

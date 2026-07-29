@@ -124,8 +124,8 @@ export default function WorkflowSection() {
       className="relative overflow-hidden"
       style={{
         background: "#ffffff",
-        paddingTop: "7rem",
-        paddingBottom: "7rem",
+        paddingTop: "6rem",
+        paddingBottom: "6rem",
         width: "100%",
         display: "flex",
         justifyContent: "center",
@@ -200,21 +200,9 @@ export default function WorkflowSection() {
           </div>
         </div>
 
-        {/* Horizontal Accordion Stack - Centered with hardcoded inline CSS */}
+        {/* Horizontal Accordion Stack on Desktop / Vertical Accordion on Mobile */}
         <div
-          className="workflow-accordion flex flex-col lg:flex-row"
-          style={{
-            display: "flex",
-            gap: "1rem",
-            width: "100%",
-            maxWidth: "1150px",
-            marginLeft: "auto",
-            marginRight: "auto",
-            minHeight: "340px",
-            height: "340px",
-            justifyContent: "center",
-            alignItems: "stretch",
-          }}
+          className="workflow-accordion flex flex-col lg:flex-row gap-4 w-full max-w-[1150px] mx-auto h-auto lg:h-[340px] lg:min-h-[340px] justify-center items-stretch"
         >
           {WORKFLOW_STEPS.map((step, index) => {
             const isExpanded = activeIndex === index;
@@ -225,38 +213,49 @@ export default function WorkflowSection() {
                 key={step.step}
                 onMouseEnter={() => setActiveIndex(index)}
                 onClick={() => setActiveIndex(index)}
-                className={`relative cursor-pointer ${
+                className={`relative cursor-pointer w-full lg:w-auto transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                   isExpanded ? "shadow-xl ring-2 ring-slate-900/10" : "opacity-90 hover:opacity-100 hover:shadow-md"
                 }`}
                 style={{
                   backgroundColor: theme.bg,
                   color: theme.text,
                   border: `1px solid ${theme.border}`,
-                  padding: "1.75rem",
+                  padding: isExpanded ? "1.5rem 1.75rem" : "1.25rem 1.5rem",
                   borderRadius: "1.5rem",
                   flex: isExpanded ? "3.5 1 0%" : "1 1 0%",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
                   overflow: "hidden",
-                  transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
               >
-                {/* Top Section: Circled Step Number */}
-                <div className="flex items-center justify-between w-full mb-6">
-                  <div
-                    className="w-12 h-12 rounded-full border-2 border-current flex items-center justify-center text-xl font-bold font-mono shrink-0 shadow-xs"
-                    style={{ borderColor: theme.text }}
-                  >
-                    {step.step}
+                {/* Top Section: Circled Step Number & Badge */}
+                <div className="flex items-center justify-between w-full mb-3 lg:mb-6">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="w-10 h-10 lg:w-12 lg:h-12 rounded-full border-2 border-current flex items-center justify-center text-lg lg:text-xl font-bold font-mono shrink-0 shadow-xs"
+                      style={{ borderColor: theme.text }}
+                    >
+                      {step.step}
+                    </div>
+                    {/* On Mobile when collapsed, show title right next to number */}
+                    {!isExpanded && (
+                      <h3 className="lg:hidden font-serif font-bold text-lg leading-snug line-clamp-1">
+                        {step.title}
+                      </h3>
+                    )}
                   </div>
 
-                  {isExpanded && (
+                  {isExpanded ? (
                     <span
                       className="px-3.5 py-1 rounded-full text-xs font-bold font-mono tracking-wide"
                       style={{ backgroundColor: theme.badgeBg, color: theme.badgeText }}
                     >
                       Step 0{step.step}
+                    </span>
+                  ) : (
+                    <span className="lg:hidden text-xs font-mono font-bold opacity-60 flex items-center gap-1">
+                      Expand ↓
                     </span>
                   )}
                 </div>
@@ -266,7 +265,7 @@ export default function WorkflowSection() {
                   <div>
                     <h3
                       className={`font-serif font-bold transition-all duration-300 leading-snug ${
-                        isExpanded ? "text-2xl sm:text-3xl mb-4" : "text-xl mb-2"
+                        isExpanded ? "text-xl sm:text-2xl lg:text-3xl mb-2 lg:mb-4" : "hidden lg:block text-xl mb-2"
                       }`}
                     >
                       {step.title}
@@ -275,12 +274,12 @@ export default function WorkflowSection() {
                     {isExpanded && (
                       <div className="animate-fadeIn">
                         <p
-                          className="font-medium text-xs uppercase tracking-wider mb-4 font-mono opacity-80"
+                          className="font-medium text-xs uppercase tracking-wider mb-2 lg:mb-4 font-mono opacity-80"
                           style={{ color: theme.badgeText }}
                         >
                           {theme.tagline}
                         </p>
-                        <p className="text-base lg:text-lg leading-relaxed opacity-90 max-w-xl">
+                        <p className="text-sm lg:text-lg leading-relaxed opacity-90 max-w-xl">
                           {step.description}
                         </p>
                       </div>
@@ -288,9 +287,9 @@ export default function WorkflowSection() {
                   </div>
 
                   {/* Icon Graphic at Bottom Right */}
-                  <div className="flex items-end justify-between mt-6 pt-4 border-t border-black/5">
+                  <div className={`flex items-end justify-between mt-4 lg:mt-6 pt-3 lg:pt-4 border-t border-black/5 ${!isExpanded ? "hidden lg:flex" : "flex"}`}>
                     {isExpanded ? (
-                      <div className="text-xs font-bold font-mono uppercase tracking-wider opacity-70">
+                      <div className="text-[0.7rem] lg:text-xs font-bold font-mono uppercase tracking-wider opacity-70">
                         Avyuct AI Pipeline Phase 0{step.step}
                       </div>
                     ) : (

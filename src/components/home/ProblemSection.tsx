@@ -57,84 +57,103 @@ export default function ProblemSection() {
   return (
     <section
       ref={container}
-      className="relative overflow-hidden"
       style={{
+        position: "relative",
+        overflow: "hidden",
         backgroundColor: "#ffffff",
         borderTop: "1px solid #e2e8f0",
         borderBottom: "1px solid #e2e8f0",
-        paddingTop: "3.5rem",
-        paddingBottom: "3.5rem",
+        paddingTop: "5rem",
+        paddingBottom: "5rem",
       }}
     >
-      <div className="container-wide relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div
+        style={{
+          position: "relative",
+          zIndex: 10,
+          width: "100%",
+          maxWidth: "80rem",
+          marginLeft: "auto",
+          marginRight: "auto",
+          paddingLeft: "1.5rem",
+          paddingRight: "1.5rem",
+        }}
+      >
         <div
-          className="stats-bar grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+          className="stats-bar grid grid-cols-2 md:grid-cols-4"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
             alignItems: "center",
           }}
         >
-          {PROBLEM_STATS.map((stat, i) => (
-            <div
-              key={i}
-              className="stat-item flex flex-col items-center justify-center text-center px-4"
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                textAlign: "center",
-                paddingLeft: "1rem",
-                paddingRight: "1rem",
-                paddingTop: "1rem",
-                paddingBottom: "1rem",
-                borderRight: i < PROBLEM_STATS.length - 1 ? "1px solid #e2e8f0" : "none",
-              }}
-            >
+          {PROBLEM_STATS.map((stat, i) => {
+            const hasTextSuffix = /^[a-zA-Z]/.test(stat.suffix.trim());
+            return (
               <div
-                className="stat-value font-serif flex items-baseline justify-center"
+                key={i}
+                className="stat-item"
                 style={{
-                  fontFamily: "var(--font-serif)",
-                  fontSize: "3.25rem",
-                  fontWeight: 400,
-                  lineHeight: 1,
-                  color: "#1e293b",
                   display: "flex",
-                  alignItems: "baseline",
+                  flexDirection: "column",
+                  alignItems: "center",
                   justifyContent: "center",
-                }}
-              >
-                <span
-                  className="stat-counter"
-                  data-value={stat.value}
-                  data-decimals={stat.value % 1 !== 0 ? 1 : 0}
-                  style={{ color: "#1e293b" }}
-                >
-                  0
-                </span>
-                <span style={{ color: "#1e293b", fontSize: "3.25rem", marginLeft: stat.suffix.startsWith(" ") ? "0.35rem" : "0" }}>
-                  {stat.suffix.trim()}
-                </span>
-              </div>
-
-              <p
-                className="stat-label font-sans"
-                style={{
-                  color: "#475569",
-                  fontSize: "0.85rem",
-                  fontWeight: 500,
-                  marginTop: "0.75rem",
-                  lineHeight: 1.4,
                   textAlign: "center",
-                  maxWidth: "210px",
-                  margin: "0.75rem auto 0 auto",
+                  paddingLeft: "1rem",
+                  paddingRight: "1rem",
+                  paddingTop: "1rem",
+                  paddingBottom: "1rem",
+                  borderRight: i < PROBLEM_STATS.length - 1 ? "1px solid #e2e8f0" : "none",
                 }}
               >
-                {stat.label}
-              </p>
-            </div>
-          ))}
+                <div
+                  className="stat-value font-serif"
+                  style={{
+                    display: "flex",
+                    alignItems: "baseline",
+                    justifyContent: "center",
+                    fontSize: "3.25rem",
+                    fontWeight: 400,
+                    lineHeight: 1,
+                    color: "#1e293b",
+                  }}
+                >
+                  <span
+                    className="stat-counter"
+                    data-value={stat.value}
+                    data-decimals={stat.value % 1 !== 0 ? 1 : 0}
+                    style={{ color: "#1e293b" }}
+                  >
+                    0
+                  </span>
+                  <span
+                    style={{
+                      color: "#1e293b",
+                      marginLeft: hasTextSuffix ? "0.5rem" : "0.15rem",
+                    }}
+                  >
+                    {stat.suffix.trim()}
+                  </span>
+                </div>
+
+                <p
+                  className="stat-label font-sans"
+                  style={{
+                    color: "#475569",
+                    fontSize: "0.875rem",
+                    fontWeight: 500,
+                    marginTop: "0.75rem",
+                    lineHeight: 1.4,
+                    textAlign: "center",
+                    maxWidth: "190px",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                  }}
+                >
+                  {stat.label}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
